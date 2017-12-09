@@ -30,4 +30,5 @@
              ["src/{{raw-name}}/routes/core.clj" (render "src/brevity/routes/core.clj" data)]
              ["src/{{raw-name}}/startup/core.clj" (render "src/brevity/startup/core.clj" data)]
              ["src/{{raw-name}}/startup/properties.clj" (render "src/brevity/startup/properties.clj" data)]
-             ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)] )))
+             ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)]
+             ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)])))
