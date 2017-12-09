@@ -1,0 +1,14 @@
+mode: DEV
+
+# immutant configurations
+server:
+  port: 4567
+  host: 127.0.0.1
+
+# auth tokens
+auth:
+  # sweet merciful jesus, use a random base64 string
+  secret: not everybody knows about this, nor should they, it's a sale
+  issuer: example.org
+  audience: example.org
+  token_name: Bearer
