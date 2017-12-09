@@ -5,7 +5,7 @@
             [clojure.spec.alpha :as s]
             [{{name}}.utils.spec :as spec]))
 
-(def table :{{name}}.users)
+(def table (keyword "{{name}}.{{entity-plural}}"))
 
 (s/def ::uuid spec/uuid)
 (s/def ::name spec/string)
@@ -38,24 +38,10 @@
           :password ::password))
 
 (defn uuid->user [uuid]
-  (first (sql/query ["SELECT * FROM sbgive.users WHERE uuid = ?" uuid])))
+  (first (sql/query ["SELECT * FROM {{name}}.{{entity-plural}} WHERE uuid = ?" uuid])))
 
 (s/fdef uuid->user
   :args (s/cat :uuid ::uuid)
-  :ret user-spec)
-
-(defn email->user [email]
-  (first (sql/query ["SELECT * FROM sbgive.users WHERE email = ?" email])))
-
-(s/fdef email->user
-  :args (s/cat :email ::email)
-  :ret user-spec)
-
-(defn facebook-id->user [fid]
-  (sql/query ["SELECT * FROM sbgive.users WHERE facebookid = ?" fid]))
-
-(s/fdef facebook-id->user
-  :args (s/cat :facebook-id ::facebookid)
   :ret user-spec)
 
 (defn update [id {:keys [name email password phone] :as user-map}]

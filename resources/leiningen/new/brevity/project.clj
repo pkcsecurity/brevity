@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :profiles {:dev {:source-paths ["src" "tool-src"]}
              :uberjar {:aot :all}}
-  :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands"]}
+  :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands" :project/main]}
   :main ^:skip-aot {{namespace}}
   :dependencies [[org.clojure/clojure "LATEST"]
                  [org.immutant/web "LATEST"]
@@ -20,4 +20,5 @@
                  [io.forward/yaml "LATEST"]
                  [camel-snake-kebab "LATEST"]
                  [org.clojure/spec.alpha "LATEST"]
-                 [org.clojure/java.jdbc "LATEST"]])
+                 [org.clojure/java.jdbc "LATEST"]
+                 [stencil "0.5.0"]])

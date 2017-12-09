@@ -33,4 +33,4 @@
              ["src/{{raw-name}}/utils/spec.clj" (render "src/brevity/utils/spec.clj" data)]
              ["src/{{raw-name}}/models/sql.clj" (render "src/brevity/models/sql.clj" data)]
              ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]
-             ["tool-src/templates/entity.clj" (render "tool-src/templates/entity.clj" data)])))
+             ["tool-src/templates/entity.clj" (render "tool-src/templates/entity.clj")])))
