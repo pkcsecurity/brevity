@@ -18,7 +18,6 @@
              "sql"
              "target"
              "src/{{raw-name}}/external"
-             "src/{{raw-name}}/models"
              "src/{{raw-name}}/shutdown"
              ["project.clj" (render "project.clj" data)]
              ["README.md" (render "README.md" data)]
@@ -31,4 +30,7 @@
              ["src/{{raw-name}}/startup/core.clj" (render "src/brevity/startup/core.clj" data)]
              ["src/{{raw-name}}/startup/properties.clj" (render "src/brevity/startup/properties.clj" data)]
              ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)]
-             ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)])))
+             ["src/{{raw-name}}/utils/spec.clj" (render "src/brevity/utils/spec.clj" data)]
+             ["src/{{raw-name}}/models/sql.clj" (render "src/brevity/models/sql.clj" data)]
+             ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]
+             ["tool-src/templates/entity.clj" (render "tool-src/templates/entity.clj" data)])))

@@ -15,6 +15,9 @@
                  [compojure "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
+                 [buddy/buddy-hashers "LATEST"]
                  [caesium "LATEST"]
                  [io.forward/yaml "LATEST"]
-                 [camel-snake-kebab "LATEST"]])
+                 [camel-snake-kebab "LATEST"]
+                 [org.clojure/spec.alpha "LATEST"]
+                 [org.clojure/java.jdbc "LATEST"]])
