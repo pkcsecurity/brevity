@@ -17,17 +17,21 @@
              "private"
              "sql"
              "target"
+             "static"
+             "static/css"
+             "static/img"
              "src/{{raw-name}}/external"
              "src/{{raw-name}}/models"
              "src/{{raw-name}}/shutdown"
              ["project.clj" (render "project.clj" data)]
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
-             ["static/index.html" (render "static/index.html" data)]
+             ["static/css/index.css" (render "static/css/index.css" data)]
              ["private/app.yaml" (render "private/app.yaml" data)]
              ["src/{{nested-dirs}}.clj" (render "src/brevity/core.clj" data)]
              ["src/{{raw-name}}/roles/core.clj" (render "src/brevity/roles/core.clj" data)]
              ["src/{{raw-name}}/routes/core.clj" (render "src/brevity/routes/core.clj" data)]
              ["src/{{raw-name}}/startup/core.clj" (render "src/brevity/startup/core.clj" data)]
              ["src/{{raw-name}}/startup/properties.clj" (render "src/brevity/startup/properties.clj" data)]
-             ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)] )))
+             ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)]
+             ["cljs-src/{{raw-name}}/cljs/core.cljs" (render "cljs-src/brevity/cljs/core.cljs" data)])))
