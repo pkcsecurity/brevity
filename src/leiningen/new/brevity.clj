@@ -8,7 +8,7 @@
 
 (defn brevity [name]
   (let [main-ns (multi-segment (sanitize-ns name))
-        data {:raw-name name
+        data {:raw-name (.replace (str name) \- \_)
               :name (project-name name)
               :namespace main-ns
               :nested-dirs (name-to-path main-ns)}]
