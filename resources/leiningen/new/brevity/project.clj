@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :profiles {:dev {:source-paths ["src" "tool-src"]}
              :uberjar {:aot :all}}
-  :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands"]}
+  :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands" :project/main]}
   :main ^:skip-aot {{namespace}}
   :dependencies [[org.clojure/clojure "LATEST"]
                  [org.immutant/web "LATEST"]
@@ -15,9 +15,13 @@
                  [compojure "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
+                 [buddy/buddy-hashers "LATEST"]
                  [caesium "LATEST"]
                  [io.forward/yaml "LATEST"]
                  [camel-snake-kebab "LATEST"]
+                 [org.clojure/spec.alpha "LATEST"]
+                 [org.clojure/java.jdbc "LATEST"]
+                 [stencil "0.5.0"]
                  [org.clojure/clojurescript "LATEST"]
                  [hiccup "LATEST"]
                  [reagent "LATEST"]]
@@ -49,4 +53,4 @@
                  :main {{raw-name}}.cljs.core
                  :output-dir "static/release/js"
                  :optimizations :advanced
-                 :pseudo-names false}}]}) 
+                 :pseudo-names false}}]})

@@ -8,7 +8,7 @@
 
 (defn brevity [name]
   (let [main-ns (multi-segment (sanitize-ns name))
-        data {:raw-name name
+        data {:raw-name (.replace (str name) \- \_)
               :name (project-name name)
               :namespace main-ns
               :nested-dirs (name-to-path main-ns)}]
@@ -34,4 +34,8 @@
              ["src/{{raw-name}}/startup/core.clj" (render "src/brevity/startup/core.clj" data)]
              ["src/{{raw-name}}/startup/properties.clj" (render "src/brevity/startup/properties.clj" data)]
              ["src/{{raw-name}}/utils/core.clj" (render "src/brevity/utils/core.clj" data)]
-             ["cljs-src/{{raw-name}}/cljs/core.cljs" (render "cljs-src/brevity/cljs/core.cljs" data)])))
+             ["cljs-src/{{raw-name}}/cljs/core.cljs" (render "cljs-src/brevity/cljs/core.cljs" data)]
+             ["src/{{raw-name}}/utils/spec.clj" (render "src/brevity/utils/spec.clj" data)]
+             ["src/{{raw-name}}/models/sql.clj" (render "src/brevity/models/sql.clj" data)]
+             ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]
+             ["tool-src/templates/entity.clj" (render "tool-src/templates/entity.clj")])))

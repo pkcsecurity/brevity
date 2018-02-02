@@ -1,5 +1,6 @@
 (ns brevity.core
-  (:require [clojure.java.shell :refer [sh]]))
+  (:require [clojure.java.shell :refer [sh]]
+            [stencil.core :as stencil]))
 
 (defn print-error [err]
   (println (str "Error running command: " err)))
@@ -13,15 +14,24 @@
         (print out)
         (println ">>>Success!")))))
 
-(def default-command #(execute-command "echo Haven't implemented this yet..."))
+(def default-command #(execute-command "echo Haven't implemented this command yet..."))
 
-(defn generate [[c & commands]]
-  (execute-command (str "echo " c " (just echoing the last command for now)"))
-  (execute-command (str "echo does this work?")))
+(defn generate-scaffolding [name [entity]]
+  (let [data {:name name
+              :entity entity
+              :entity-plural (str entity "s")}
+        result (stencil/render-string (slurp "tool-src/templates/entity.clj") data)]
+    (spit (str "src/" (:name data) "/models/" (:entity data) ".clj") result)))
 
-(defn handle-commands [c & commands]
+(defn generate [name [c & commands]]
   (case c
-    "generate" (generate commands)
-    "start" (default-command)
-    (println "Not a valid command!"))
-  (shutdown-agents))
+    "scaffolding" (generate-scaffolding name commands)
+    (println "Not a valid command!")))
+
+(defn handle-commands [c & [command & commands]]
+  (let [name (first (clojure.string/split c #"\."))]
+    (case command
+      "generate" (generate name commands)
+      "start" (default-command)
+      (println "Not a valid command!"))
+    (shutdown-agents)))
