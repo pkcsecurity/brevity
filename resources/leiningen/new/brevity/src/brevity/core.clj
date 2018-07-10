@@ -1,7 +1,7 @@
 (ns {{name}}.core
   (:gen-class)
-  (:require [{{name}}.routes.core :as r]
-            [{{name}}.utils.core :as u]
+  (:require [{{name}}.clj.routes.core :as r]
+            [{{name}}.clj.utils.core :as u]
             [immutant.web :as server]))
 
 (def host (u/property :server :host))

@@ -34,7 +34,7 @@
   :plugins [[lein-cljsbuild "LATEST"]]
   :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["cljs-src"]
+                :source-paths ["src/cljs"]
                 :compiler
                 {:output-to "static/development/index.js"
                  :source-map true
@@ -45,7 +45,7 @@
                  :cache-analysis true
                  :pretty-print true}}
                {:id "release"
-                :source-paths ["cljs-src"]
+                :source-paths ["src/cljs"]
                 :compiler
                 {:output-to "static/release/index.js"
                  :source-map "static/release/index.js.map"

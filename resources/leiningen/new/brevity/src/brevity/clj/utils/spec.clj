@@ -1,6 +1,6 @@
-(ns {{name}}.utils.spec
+(ns {{name}}.clj.utils.spec
   (:require [clojure.spec.alpha :as s]
-            [{{name}}.utils.core :as utils]))
+            [{{name}}.clj.utils.core :as utils]))
 
 (defn explain [spec obj]
   (when-let [probs (s/explain-data spec obj)]

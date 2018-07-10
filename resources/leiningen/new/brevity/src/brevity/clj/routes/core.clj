@@ -1,9 +1,9 @@
-(ns {{name}}.routes.core
+(ns {{name}}.clj.routes.core
   (:require [ring.middleware.json :as json]
             [ring.middleware.file :as file]
             [ring.middleware.content-type :as ct]
-            [{{name}}.roles.core :as roles]
-            [{{name}}.utils.core :as u]
+            [{{name}}.clj.roles.core :as roles]
+            [{{name}}.clj.utils.core :as u]
             [compojure.core :as r]
             [compojure.route :as route]
             [hiccup.core :as html]))

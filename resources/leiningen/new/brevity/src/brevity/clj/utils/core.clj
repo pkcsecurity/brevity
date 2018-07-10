@@ -1,7 +1,7 @@
-(ns {{name}}.utils.core
+(ns {{name}}.clj.utils.core
   (:require [clojure.string :as str]
             [camel-snake-kebab.core :as csk]
-            [{{name}}.startup.core :as startup]
+            [{{name}}.clj.startup.core :as startup]
             [buddy.hashers :as hash]))
 
 (startup/startup)

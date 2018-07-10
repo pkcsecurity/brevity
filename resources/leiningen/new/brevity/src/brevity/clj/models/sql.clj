@@ -1,4 +1,4 @@
-(ns {{name}}.models.sql
+(ns {{name}}.clj.models.sql
   (:require [clojure.java.jdbc :as jdbc]))
 
 (def heroku-db-url (System/getenv "JDBC_DATABASE_URL"))
