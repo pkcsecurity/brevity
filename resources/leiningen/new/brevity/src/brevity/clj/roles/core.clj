@@ -16,9 +16,7 @@
 (def deny-all (constantly false))
 
 (def rules
-  [{:uris ["/"]
-    :handler allow-all}
-   {:pattern #"^/static/.*$"
+  [{:uris ["/*"]
     :handler allow-all}
    {:pattern #"^/.*$"
     :handler deny-all}])

@@ -17,9 +17,9 @@
              "private"
              "sql"
              "target"
-             "static"
-             "static/css"
-             "static/img"
+             "resources"
+             "resources/public/css"
+             "resources/public/img"
              "src/{{raw-name}}/clj/external"
              "src/{{raw-name}}/clj/models"
              "src/{{raw-name}}/clj/shutdown"
@@ -27,7 +27,7 @@
              ["profiles.clj" (render "profiles.clj" data)]
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
-             ["static/css/index.css" (render "static/css/index.css" data)]
+             ["resources/public/css/index.css" (render "resources/public/css/index.css" data)]
              ["src/{{raw-name}}/clj/core.clj" (render "src/brevity/clj/core.clj" data)]
              ["src/{{raw-name}}/clj/roles/core.clj" (render "src/brevity/clj/roles/core.clj" data)]
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]

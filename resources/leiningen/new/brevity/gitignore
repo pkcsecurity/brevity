@@ -22,9 +22,8 @@ pom.xml.asc
 
 *.orig
 
-/static/dev
-/static/development
-/static/release
+/resources/public/js/development
+/resources/public/js/release
 /private
 
 profiles.clj
