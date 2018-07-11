@@ -32,33 +32,31 @@
                  [hiccup "LATEST"]
                  [reagent "LATEST"]
                  [environ "LATEST"]]
-  :clean-targets ["static/development/js"
-                  "static/release/js"
-                  "static/development/index.js"
-                  "static/development/index.js.map"
+  :clean-targets ["resources/public/js/development"
+                  "resources/public/js/release"
                   "out"
                   "target"]
   :plugins [[lein-cljsbuild "LATEST"]
             [lein-environ "LATEST"]]
   :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["src/cljs"]
+                :source-paths ["src/{{raw-name}}/cljs"]
                 :compiler
-                {:output-to "static/development/index.js"
+                {:output-to "resources/public/js/development/index.js"
                  :source-map true
-                 :output-dir "static/development/js"
+                 :output-dir "resources/public/js/development"
                  :optimizations :none
                  :main {{raw-name}}.cljs.core
-                 :asset-path "development/js"
+                 :asset-path "js/development"
                  :cache-analysis true
                  :pretty-print true}}
                {:id "release"
                 :source-paths ["src/cljs"]
                 :compiler
-                {:output-to "static/release/index.js"
-                 :source-map "static/release/index.js.map"
+                {:output-to "resources/public/js/release/index.js"
+                 :source-map "resources/public/js/release/index.js.map"
                  :externs []
                  :main {{raw-name}}.cljs.core
-                 :output-dir "static/release/js"
+                 :output-dir "resources/public/js/release"
                  :optimizations :advanced
                  :pseudo-names false}}]})

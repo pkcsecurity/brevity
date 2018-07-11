@@ -2,6 +2,7 @@
   (:require [ring.middleware.json :as json]
             [ring.middleware.file :as file]
             [ring.middleware.content-type :as ct]
+            [ring.middleware.resource :as resource]
             [{{name}}.clj.roles.core :as roles]
             [{{name}}.clj.utils.core :as u]
             [compojure.core :as r]
@@ -18,7 +19,7 @@
               [:title "{{name}}"]]
              [:body 
               [:div#app]
-              [:script {:src (if (= "development" (environ/env :environment)) "development/index.js" "release/index.js")}]]))
+              [:script {:src (if (= "development" (environ/env :environment)) "/js/development/index.js" "/js/release/index.js")}]]))
 
 (r/defroutes routes
   (r/GET "/" [] 
@@ -26,6 +27,7 @@
            {:status 200
             :headers {"Content-Type" "text/html"}
             :body index}))
+  (route/resources "/")
   (route/not-found nil))
 
 (def app
@@ -33,5 +35,4 @@
       (json/wrap-json-response)
       (json/wrap-json-body {:keywords? true})
       (roles/wrap-security)
-      (file/wrap-file "static" {:index-files? false})
       (ct/wrap-content-type)))
