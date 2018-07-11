@@ -6,6 +6,7 @@
             [{{name}}.clj.utils.core :as u]
             [compojure.core :as r]
             [compojure.route :as route]
+            [environ.core :as environ]
             [hiccup.core :as html]))
 
 (def index
@@ -17,7 +18,7 @@
               [:title "{{name}}"]]
              [:body 
               [:div#app]
-              [:script {:src (if (= "DEV" @u/mode) "development/index.js" "release/index.js")}]]))
+              [:script {:src (if (= "development" (environ/env :environment)) "development/index.js" "release/index.js")}]]))
 
 (r/defroutes routes
   (r/GET "/" [] 

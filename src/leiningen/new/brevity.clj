@@ -24,15 +24,13 @@
              "src/{{raw-name}}/clj/models"
              "src/{{raw-name}}/clj/shutdown"
              ["project.clj" (render "project.clj" data)]
+             ["profiles.clj" (render "profiles.clj" data)]
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
              ["static/css/index.css" (render "static/css/index.css" data)]
-             ["private/app.yaml" (render "private/app.yaml" data)]
              ["src/{{raw-name}}/clj/core.clj" (render "src/brevity/clj/core.clj" data)]
              ["src/{{raw-name}}/clj/roles/core.clj" (render "src/brevity/clj/roles/core.clj" data)]
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]
-             ["src/{{raw-name}}/clj/startup/core.clj" (render "src/brevity/clj/startup/core.clj" data)]
-             ["src/{{raw-name}}/clj/startup/properties.clj" (render "src/brevity/clj/startup/properties.clj" data)]
              ["src/{{raw-name}}/clj/utils/core.clj" (render "src/brevity/clj/utils/core.clj" data)]
              ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]
              ["src/{{raw-name}}/clj/utils/spec.clj" (render "src/brevity/clj/utils/spec.clj" data)]

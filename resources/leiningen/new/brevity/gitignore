@@ -26,3 +26,5 @@ pom.xml.asc
 /static/development
 /static/release
 /private
+
+profiles.clj

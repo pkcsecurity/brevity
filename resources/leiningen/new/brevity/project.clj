@@ -3,8 +3,14 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :profiles {:dev {:source-paths ["src" "tool-src"]}
-             :uberjar {:aot :all}}
+  :profiles {:dev [:project/dev :profiles/dev]
+             :test [:project/test :profiles/test]
+             ;; only edit :profiles/* in profiles.clj
+             :profiles/dev  {}
+             :profiles/test {}
+             :project/dev {:source-paths ["src" "tool-src"]
+                           :plugins [[lein-auto "LATEST"]]}
+             :project/test {}}
   :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands" :project/main]}
   :main ^:skip-aot {{namespace}}
   :dependencies [[org.clojure/clojure "LATEST"]
@@ -24,14 +30,16 @@
                  [stencil "0.5.0"]
                  [org.clojure/clojurescript "LATEST"]
                  [hiccup "LATEST"]
-                 [reagent "LATEST"]]
+                 [reagent "LATEST"]
+                 [environ "LATEST"]]
   :clean-targets ["static/development/js"
                   "static/release/js"
                   "static/development/index.js"
                   "static/development/index.js.map"
                   "out"
                   "target"]
-  :plugins [[lein-cljsbuild "LATEST"]]
+  :plugins [[lein-cljsbuild "LATEST"]
+            [lein-environ "LATEST"]]
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src/cljs"]
