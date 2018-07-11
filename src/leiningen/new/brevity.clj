@@ -7,7 +7,7 @@
 (def render (renderer "brevity"))
 
 (defn brevity [name]
-  (let [main-ns (multi-segment (sanitize-ns name))
+  (let [main-ns (multi-segment (sanitize-ns (str name "/clj/core")))
         data {:raw-name (.replace (str name) \- \_)
               :name (project-name name)
               :namespace main-ns
@@ -29,7 +29,7 @@
              [".gitignore" (render "gitignore" data)]
              ["static/css/index.css" (render "static/css/index.css" data)]
              ["private/app.yaml" (render "private/app.yaml" data)]
-             ["src/{{nested-dirs}}.clj" (render "src/brevity/core.clj" data)]
+             ["src/{{raw-name}}/clj/core.clj" (render "src/brevity/clj/core.clj" data)]
              ["src/{{raw-name}}/clj/roles/core.clj" (render "src/brevity/clj/roles/core.clj" data)]
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]
              ["src/{{raw-name}}/clj/utils/core.clj" (render "src/brevity/clj/utils/core.clj" data)]

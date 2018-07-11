@@ -1,4 +1,4 @@
-(ns {{name}}.core
+(ns {{name}}.clj.core
   (:gen-class)
   (:require [{{name}}.clj.routes.core :as r]
             [{{name}}.clj.utils.core :as u]
