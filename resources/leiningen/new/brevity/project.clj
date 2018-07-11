@@ -37,10 +37,12 @@
                   "out"
                   "target"]
   :plugins [[lein-cljsbuild "LATEST"]
-            [lein-environ "LATEST"]]
+            [lein-environ "LATEST"]
+            [lein-figwheel "LATEST"]]
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src/{{raw-name}}/cljs"]
+                :figwheel true
                 :compiler
                 {:output-to "resources/public/js/development/index.js"
                  :source-map true
@@ -48,6 +50,7 @@
                  :optimizations :none
                  :main {{raw-name}}.cljs.core
                  :asset-path "js/development"
+                 :infer-externs false
                  :cache-analysis true
                  :pretty-print true}}
                {:id "release"
@@ -55,7 +58,7 @@
                 :compiler
                 {:output-to "resources/public/js/release/index.js"
                  :source-map "resources/public/js/release/index.js.map"
-                 :externs []
+                 :externs ["externs/externs.js"]
                  :main {{raw-name}}.cljs.core
                  :output-dir "resources/public/js/release"
                  :optimizations :advanced
