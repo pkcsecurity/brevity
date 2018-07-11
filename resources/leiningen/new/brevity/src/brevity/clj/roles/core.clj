@@ -1,10 +1,10 @@
-(ns {{name}}.roles.core
+(ns {{name}}.clj.roles.core
   (:require [buddy.auth :as auth]
             [buddy.auth.accessrules :as authz]
             [buddy.auth.backends.token :as token]
             [buddy.auth.middleware :as mw]
             [caesium.crypto.generichash :as crypto]
-            [{{name}}.utils.core :as u]))
+            [{{name}}.clj.utils.core :as u]))
 
 (def secret (u/property :auth :secret))
 (def issuer (u/property :auth :issuer))

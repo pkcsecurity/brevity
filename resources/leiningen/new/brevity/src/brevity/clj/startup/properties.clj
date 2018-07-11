@@ -1,4 +1,4 @@
-(ns {{name}}.startup.properties
+(ns {{name}}.clj.startup.properties
   (:require [yaml.core :as yaml]
             [clojure.string :as str]
             [camel-snake-kebab.core :as csk]))
