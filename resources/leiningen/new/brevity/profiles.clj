@@ -1,8 +1,8 @@
 {:profiles/dev {:env {:environment "development"
                       :host "127.0.0.1"
                       :port "8080"
-                      :auth-secret "TODO"
-                      :auth-issuer "TODO"
-                      :auth-audience "TODO"
-                      :auth-token-name "TODO"
+                      :auth-secret "put a random base64 string here"
+                      :auth-issuer "example.org"
+                      :auth-audience "example.org"
+                      :auth-token-name "Bearer"
                       :sql-server ""}}}
