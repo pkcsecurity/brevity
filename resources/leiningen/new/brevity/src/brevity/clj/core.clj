@@ -10,5 +10,5 @@
 
 (defn -main [& args]
   (if (= "development" (environ/env :environment))
-    (server/run r/app :host host :port port)
-    (server/run-dmc r/app :host host :port port)))
+    (server/run-dmc r/app :host host :port port)
+    (server/run r/app :host host :port port)))
