@@ -7,6 +7,7 @@
             [{{name}}.clj.utils.core :as u]
             [{{name}}.cljc.routes :as routing]
             [bidi.bidi :as bidi]
+            [bidi.ring :as br]
             [compojure.core :as r]
             [compojure.route :as route]
             [environ.core :as environ]
@@ -27,19 +28,45 @@
              (route/resources "/")
              (route/not-found nil))
 
-(defn wrap-index [handler]
-      (fn [request]
-          (let [resolved-route (bidi/match-route routing/page-routes (:uri request))
-                resolved-handler (:handler resolved-route)]
+(defn blog-handler [req]
+      {:status 200
+       :body   [{:id "interesting-content" :title "A very interesting post" :content "Coming soon!"}
+                {:id "halting-problem" :title "How to solve the halting problem" :content "Not coming any time soon."}]})
+
+(defn blog-post-handler [{:keys [route-params]}]
+      {:status 200
+       :body   {:id (:post-id route-params) :title "A very interesting post" :content "Coming soon!"}})
+
+(def api-handlers
+  {:blog blog-handler
+   :blog-post blog-post-handler})
+
+(defn wrap-bidi [handler wrapped-routes renderer]
+      (fn [{:keys [uri path-info] :as req}]
+          (let [path (or path-info uri)
+                resolved-route (bidi/match-route* wrapped-routes path req)
+                resolved-handler (:handler resolved-route)
+                route-params (:route-params resolved-route)]
                (if (= :four-o-four resolved-handler)
-                 (handler request)
-                 {:status  200
-                  :headers {"Content-Type" "text/html"}
-                  :body    index}))))
+                 (handler req)
+                 (renderer
+                   (-> req
+                       (update-in [:params] merge route-params)
+                       (update-in [:route-params] merge route-params))
+                   resolved-handler)))))
+
+(defn page-handler [request handler-name]
+      {:status  200
+       :headers {"Content-Type" "text/html"}
+       :body    index})
+
+(defn api-handler [request handler-name]
+      ((api-handlers handler-name) request))
 
 (def app
   (-> routes
-      (wrap-index)
+      (wrap-bidi routing/page-routes page-handler)
+      (wrap-bidi routing/api-routes api-handler)
       (json/wrap-json-response)
       (json/wrap-json-body {:keywords? true})
       (roles/wrap-security)
