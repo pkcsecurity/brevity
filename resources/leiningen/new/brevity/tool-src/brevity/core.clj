@@ -21,7 +21,7 @@
               :entity entity
               :entity-plural (str entity "s")}
         result (stencil/render-string (slurp "tool-src/templates/entity.clj") data)]
-    (spit (str "src/" (:name data) "/models/" (:entity data) ".clj") result)))
+    (spit (str "src/" (:name data) "/clj/models/" (:entity data) ".clj") result)))
 
 (defn generate [name [c & commands]]
   (case c

@@ -32,10 +32,9 @@
                  [hiccup "LATEST"]
                  [reagent "LATEST"]
                  [environ "LATEST"]]
-  :clean-targets ["resources/public/js/development"
-                  "resources/public/js/release"
-                  "out"
-                  "target"]
+  :clean-targets ^{:protect false} ["resources/public/js/development"
+                                    "resources/public/js/release"
+                                    "target"]
   :plugins [[lein-cljsbuild "LATEST"]
             [lein-environ "LATEST"]
             [lein-figwheel "LATEST"]]
