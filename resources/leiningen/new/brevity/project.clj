@@ -51,7 +51,7 @@
                  :output-dir "resources/public/js/development"
                  :optimizations :none
                  :main {{raw-name}}.cljs.core
-                 :asset-path "js/development"
+                 :asset-path "/js/development"
                  :infer-externs false
                  :cache-analysis true
                  :pretty-print true}}
