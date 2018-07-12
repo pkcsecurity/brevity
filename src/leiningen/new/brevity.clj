@@ -33,6 +33,7 @@
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]
              ["src/{{raw-name}}/clj/utils/core.clj" (render "src/brevity/clj/utils/core.clj" data)]
              ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]
+             ["src/{{raw-name}}/cljc/routes.cljc" (render "src/brevity/cljc/routes.cljc" data)]
              ["src/{{raw-name}}/clj/utils/spec.clj" (render "src/brevity/clj/utils/spec.clj" data)]
              ["src/{{raw-name}}/clj/models/sql.clj" (render "src/brevity/clj/models/sql.clj" data)]
              ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]
