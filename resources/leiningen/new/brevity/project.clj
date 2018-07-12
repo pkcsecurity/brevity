@@ -31,6 +31,9 @@
                  [org.clojure/clojurescript "LATEST"]
                  [hiccup "LATEST"]
                  [reagent "LATEST"]
+                 [reagent-utils "LATEST"]
+                 [bidi "LATEST"]
+                 [venantius/accountant "LATEST"]
                  [environ "LATEST"]]
   :clean-targets ^{:protect false} ["resources/public/js/development"
                                     "resources/public/js/release"
