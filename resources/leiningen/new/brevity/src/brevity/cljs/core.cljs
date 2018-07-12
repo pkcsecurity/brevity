@@ -77,13 +77,13 @@
       (accountant/configure-navigation!
         {:nav-handler (fn
                         [path]
-                        (let [match (bidi/match-route routes/app-routes path)
+                        (let [match (bidi/match-route routes/page-routes path)
                               current-page (:handler match)
                               route-params (:route-params match)]
                              (session/put! :route {:current-page current-page
                                                    :route-params route-params})))
          :path-exists? (fn [path]
-                           (boolean (bidi/match-route routes/app-routes path)))})
+                           (boolean (bidi/match-route routes/page-routes path)))})
       (accountant/dispatch-current!)
       (on-js-reload))
 

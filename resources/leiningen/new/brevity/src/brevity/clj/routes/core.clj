@@ -5,6 +5,8 @@
             [ring.middleware.resource :as resource]
             [{{name}}.clj.roles.core :as roles]
             [{{name}}.clj.utils.core :as u]
+            [{{name}}.cljc.routes :as routing]
+            [bidi.bidi :as bidi]
             [compojure.core :as r]
             [compojure.route :as route]
             [environ.core :as environ]
@@ -22,16 +24,22 @@
               [:script {:src (if (= "development" (environ/env :environment)) "/js/development/index.js" "/js/release/index.js")}]]))
 
 (r/defroutes routes
-  (r/GET "/" [] 
-         (constantly 
-           {:status 200
-            :headers {"Content-Type" "text/html"}
-            :body index}))
-  (route/resources "/")
-  (route/not-found nil))
+             (route/resources "/")
+             (route/not-found nil))
+
+(defn wrap-index [handler]
+      (fn [request]
+          (let [resolved-route (bidi/match-route routing/page-routes (:uri request))
+                resolved-handler (:handler resolved-route)]
+               (if (= :four-o-four resolved-handler)
+                 (handler request)
+                 {:status  200
+                  :headers {"Content-Type" "text/html"}
+                  :body    index}))))
 
 (def app
   (-> routes
+      (wrap-index)
       (json/wrap-json-response)
       (json/wrap-json-body {:keywords? true})
       (roles/wrap-security)
