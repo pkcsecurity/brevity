@@ -9,8 +9,8 @@
         true :four-o-four}])
 
 (def api-routes
-  ["/" {"/api/v1/" {"blog" {"" :blog
-                            ["/" :post-id] :blog-post}}
+  ["/" {"api/v1/" {"blog" {"" :blog
+                           ["/" :post-id] :blog-post}}
         true :four-o-four}])
 
 (def path (partial bidi/path-for page-routes))
