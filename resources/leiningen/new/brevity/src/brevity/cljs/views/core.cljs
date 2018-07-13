@@ -20,7 +20,7 @@
   {:index index
    :four-o-four four-o-four
    :blog blog/blog
-   :blog-post blog/blog-post})
+   :blog/entry blog/blog-entry})
 
 (defn page-contents [route]
       (let [page (:current-page route)

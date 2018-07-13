@@ -7,22 +7,22 @@
    {:id "halting-problem" :title "How to solve the halting problem" :content "Not coming any time soon."}])
 
 (defn blog [params]
-      (let [posts (xhr/api-atom :blog)]
+      (let [entries (xhr/api-atom :blog)]
            (fn []
                [:div
                 [:h1 "{{name}}: Blog"]
-                (if @posts
-                  [:div (for [{:keys [id title]} (:body @posts)]
+                (if @entries
+                  [:div (for [{:keys [id title]} (:body @entries)]
                              ^{:key id}
                              [:div
-                              [:a {:href (routes/page :blog-post :post-id id)} title]])]
-                  [:div "Loading posts..."])])))
+                              [:a {:href (routes/page :blog/entry :id id)} title]])]
+                  [:div "Loading entries..."])])))
 
-(defn blog-post [params]
-      (let [post-id (:post-id params)
-            post (xhr/api-atom :blog-post :post-id post-id)]
+(defn blog-entry [params]
+      (let [id (:id params)
+            entry (xhr/api-atom :blog/entry :id id)]
            (fn []
-               (let [{:keys [title content]} (:body @post)]
+               (let [{:keys [title content]} (:body @entry)]
                     [:div
                      [:h1 (or title "Loading...")]
                      [:div
