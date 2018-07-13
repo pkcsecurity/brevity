@@ -28,7 +28,9 @@
 
 (r/defroutes routes
              (route/resources "/")
-             (route/not-found nil))
+             (route/not-found {:status  404
+                               :headers {"Content-Type" "text/html"}
+                               :body    views/index}))
 
 (def app
   (-> routes
