@@ -11,7 +11,7 @@
        [:div (for [{:keys [id title]} blog-posts]
                   ^{:key id}
                   [:div
-                   [:a {:href (routes/path :blog-post :post-id id)} title]])]])
+                   [:a {:href (routes/page :blog-post :post-id id)} title]])]])
 
 (defn blog-post [params]
       (let [post-id (:post-id params)
@@ -20,4 +20,4 @@
             [:h1 title]
             [:div
              [:p content]
-             [:a {:href (routes/path :blog)} "Back to Blog"]]]))
+             [:a {:href (routes/page :blog)} "Back to Blog"]]]))

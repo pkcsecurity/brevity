@@ -3,7 +3,7 @@
 
 (defn header []
       [:div
-       [:p [:a {:href (routes/path :index)} "{{name}}"]]
+       [:p [:a {:href (routes/page :index)} "{{name}}"]]
        [:hr]])
 
 (defn footer []
