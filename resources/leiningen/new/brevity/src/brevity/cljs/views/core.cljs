@@ -5,14 +5,14 @@
             [reagent.session :as session]))
 
 (defn index [params]
-      [:span
+      [:div
        [:h1 "{{name}}: Index"]
        [:ul
         [:li [:a {:href (routes/page :blog)} "Blog"]]
         [:li [:a {:href "/borken/link"} "Borken link"]]]])
 
 (defn four-o-four [params]
-      [:span
+      [:div
        [:h1 "404: Page not found"]
        [:p ":("]])
 

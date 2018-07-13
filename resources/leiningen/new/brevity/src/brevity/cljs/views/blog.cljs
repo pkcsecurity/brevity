@@ -6,7 +6,7 @@
    {:id "halting-problem" :title "How to solve the halting problem" :content "Not coming any time soon."}])
 
 (defn blog [params]
-      [:span
+      [:div
        [:h1 "{{name}}: Blog"]
        [:div (for [{:keys [id title]} blog-posts]
                   ^{:key id}
@@ -16,7 +16,7 @@
 (defn blog-post [params]
       (let [post-id (:post-id params)
             {:keys [title content]} (first (filter #(= post-id (:id %)) blog-posts))]
-           [:span
+           [:div
             [:h1 title]
             [:div
              [:p content]
