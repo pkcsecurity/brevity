@@ -14,7 +14,8 @@
             [environ.core :as environ]))
 
 (def api-views
-  (apply merge [blog/blog-routes]))
+  {:blog blog/blog-handler
+   :blog-post blog/blog-post-handler})
 
 (defn page-handler [request handler-name]
       {:status  200
