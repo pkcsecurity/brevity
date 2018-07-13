@@ -7,13 +7,13 @@
             (u/page "" :index)
             (u/context "blog"
                        (u/page "/" :blog)
-                       (u/page ["/post/" :post-id] :blog-post))))
+                       (u/page ["/entry/" :id] :blog/entry))))
 
 (def api-routes
   (u/router "/api/v1/"
             (u/context "blog"
                        (u/GET "/" :blog)
-                       (u/GET ["/post/" :post-id] :blog-post))))
+                       (u/GET ["/entry/" :id] :blog/entry))))
 
 (def page (partial bidi/path-for page-routes))
 (def api (partial bidi/path-for api-routes))

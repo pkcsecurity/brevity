@@ -14,8 +14,8 @@
             [environ.core :as environ]))
 
 (def api-views
-  {:blog blog/blog-handler
-   :blog-post blog/blog-post-handler})
+  {:blog blog/blog-entries
+   :blog/entry blog/blog-entry})
 
 (defn page-handler [request handler-name]
       {:status  200
