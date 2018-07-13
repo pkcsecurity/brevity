@@ -41,6 +41,7 @@
              ["src/{{raw-name}}/cljs/views/components.cljs" (render "src/brevity/cljs/views/components.cljs" data)]
              ["src/{{raw-name}}/cljs/views/core.cljs" (render "src/brevity/cljs/views/core.cljs" data)]
              ["src/{{raw-name}}/cljc/routes.cljc" (render "src/brevity/cljc/routes.cljc" data)]
+             ["src/{{raw-name}}/cljc/utils.cljc" (render "src/brevity/cljc/utils.cljc" data)]
              ["src/{{raw-name}}/clj/utils/spec.clj" (render "src/brevity/clj/utils/spec.clj" data)]
              ["src/{{raw-name}}/clj/models/sql.clj" (render "src/brevity/clj/models/sql.clj" data)]
              ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]

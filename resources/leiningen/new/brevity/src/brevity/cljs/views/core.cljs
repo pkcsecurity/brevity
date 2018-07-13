@@ -8,7 +8,7 @@
       [:span
        [:h1 "{{name}}: Index"]
        [:ul
-        [:li [:a {:href (routes/path :blog)} "Blog"]]
+        [:li [:a {:href (routes/page :blog)} "Blog"]]
         [:li [:a {:href "/borken/link"} "Borken link"]]]])
 
 (defn four-o-four [params]
