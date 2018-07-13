@@ -8,7 +8,3 @@
 (defn blog-post-handler [{:keys [route-params]}]
       {:status 200
        :body   {:id (:post-id route-params) :title "A very interesting post" :content "Coming soon!"}})
-
-(def blog-routes
-  {:blog blog-handler
-   :blog-post blog-post-handler})
