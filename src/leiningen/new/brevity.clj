@@ -36,7 +36,7 @@
              ["src/{{raw-name}}/clj/utils/core.clj" (render "src/brevity/clj/utils/core.clj" data)]
              ["src/{{raw-name}}/clj/views/core.clj" (render "src/brevity/clj/views/core.clj" data)]
              ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]
-             ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]
+             ["src/{{raw-name}}/cljs/xhr.cljs" (render "src/brevity/cljs/xhr.cljs" data)]
              ["src/{{raw-name}}/cljs/views/blog.cljs" (render "src/brevity/cljs/views/blog.cljs" data)]
              ["src/{{raw-name}}/cljs/views/components.cljs" (render "src/brevity/cljs/views/components.cljs" data)]
              ["src/{{raw-name}}/cljs/views/core.cljs" (render "src/brevity/cljs/views/core.cljs" data)]
