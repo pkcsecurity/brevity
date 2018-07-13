@@ -31,6 +31,10 @@
                  [org.clojure/clojurescript "LATEST"]
                  [hiccup "LATEST"]
                  [reagent "LATEST"]
+                 [reagent-utils "LATEST"]
+                 [cljs-http "LATEST"]
+                 [bidi "LATEST"]
+                 [venantius/accountant "LATEST"]
                  [environ "LATEST"]]
   :clean-targets ^{:protect false} ["resources/public/js/development"
                                     "resources/public/js/release"
@@ -48,7 +52,7 @@
                  :output-dir "resources/public/js/development"
                  :optimizations :none
                  :main {{raw-name}}.cljs.core
-                 :asset-path "js/development"
+                 :asset-path "/js/development"
                  :infer-externs false
                  :cache-analysis true
                  :pretty-print true}}

@@ -5,33 +5,37 @@
             [ring.middleware.resource :as resource]
             [{{name}}.clj.roles.core :as roles]
             [{{name}}.clj.utils.core :as u]
+            [{{name}}.clj.routes.middleware :as middleware]
+            [{{name}}.clj.routes.blog :as blog]
+            [{{name}}.clj.views.core :as views]
+            [{{name}}.cljc.routes :as routing]
             [compojure.core :as r]
             [compojure.route :as route]
-            [environ.core :as environ]
-            [hiccup.core :as html]))
+            [environ.core :as environ]))
 
-(def index
-  (html/html {:mode :html}
-             [:head
-              [:meta {:charset "utf-8"}]
-              [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-              [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
-              [:title "{{name}}"]]
-             [:body 
-              [:div#app]
-              [:script {:src (if (= "development" (environ/env :environment)) "/js/development/index.js" "/js/release/index.js")}]]))
+(def api-views
+  {:blog blog/blog-entries
+   :blog/entry blog/blog-entry})
+
+(defn page-handler [request handler-name]
+      {:status  200
+       :headers {"Content-Type" "text/html"}
+       :body    views/index})
+
+(defn api-view [request handler-name]
+      (when-let [view-fn (api-views handler-name)]
+                (view-fn request)))
 
 (r/defroutes routes
-  (r/GET "/" [] 
-         (constantly 
-           {:status 200
-            :headers {"Content-Type" "text/html"}
-            :body index}))
-  (route/resources "/")
-  (route/not-found nil))
+             (route/resources "/")
+             (route/not-found {:status  404
+                               :headers {"Content-Type" "text/html"}
+                               :body    views/index}))
 
 (def app
   (-> routes
+      (middleware/wrap-bidi routing/page-routes page-handler)
+      (middleware/wrap-bidi routing/api-routes api-view)
       (json/wrap-json-response)
       (json/wrap-json-body {:keywords? true})
       (roles/wrap-security)
