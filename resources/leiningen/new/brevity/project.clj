@@ -32,6 +32,7 @@
                  [hiccup "LATEST"]
                  [reagent "LATEST"]
                  [reagent-utils "LATEST"]
+                 [cljs-http "LATEST"]
                  [bidi "LATEST"]
                  [venantius/accountant "LATEST"]
                  [environ "LATEST"]]
