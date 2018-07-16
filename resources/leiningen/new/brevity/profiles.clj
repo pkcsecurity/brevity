@@ -5,4 +5,10 @@
                       :auth-issuer "example.org"
                       :auth-audience "example.org"
                       :auth-token-name "Bearer"
-                      :sql-server ""}}}
+                      :sql-dbtype "postgresql"
+                      :sql-dbname "postgres"
+                      :sql-host "localhost"
+                      :sql-port "55432"
+                      :sql-user "postgres"
+                      :sql-password "postgres"
+                      :dev-database "true"}}}
