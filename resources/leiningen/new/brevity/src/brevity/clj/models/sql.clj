@@ -1,25 +1,22 @@
 (ns {{name}}.clj.models.sql
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [environ.core :as environ])
+  (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]))
 
-(def heroku-db-url (System/getenv "JDBC_DATABASE_URL"))
+(def dbspec {:dbtype (environ/env :sql-dbtype)
+             :classname (environ/env :sql-dbname)
+             :dbname (environ/env :sql-dbname)
+             :host (environ/env :sql-host)
+             :port (environ/env :sql-port)
+             :user (environ/env :sql-user)
+             :password (environ/env :sql-password)
+             :encrypt "true"
+             :loginTimeout "30"})
 
-(def dbspec
-  (if heroku-db-url
-    {:connection-uri heroku-db-url}
-    {:subprotocol "postgresql"
-     :subname "//localhost:5432/{{name}}"}))
-
-(defmacro insert! [table row]
-  `(jdbc/insert! dbspec ~table ~row))
-
-(defmacro query [q]
-  `(jdbc/query dbspec ~q))
-
-(defmacro update! [table row where]
-  `(jdbc/update! dbspec
-     ~table
-     ~row
-     ~where))
-
-(defmacro delete! [table where]
-  `(jdbc/delete! dbspec ~table ~where))
+(defn init! [dev-mode?]
+  (when dev-mode?
+    (let [db (EmbeddedPostgres/builder)
+          db-port (Integer/parseInt (environ/env :sql-port))]
+         (future
+           (.setPort db db-port)
+           (.start db)))))

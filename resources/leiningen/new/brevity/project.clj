@@ -19,6 +19,7 @@
                  [ring/ring-devel "LATEST"]
                  [ring/ring-json "LATEST"]
                  [compojure "LATEST"]
+                 [com.opentable.components/otj-pg-embedded "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
                  [buddy/buddy-hashers "LATEST"]
@@ -41,7 +42,9 @@
                                     "target"]
   :plugins [[lein-cljsbuild "LATEST"]
             [lein-environ "LATEST"]
+            [lein-cljfmt "LATEST"]
             [lein-figwheel "LATEST"]]
+  :cljfmt {:indents {#".*" [[:block 0]]}}
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src/{{raw-name}}/cljs"]
