@@ -1,7 +1,8 @@
 (ns {{name}}.clj.models.sql
   (:require [clojure.java.jdbc :as jdbc]
             [environ.core :as environ])
-  (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]))
+  (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]
+           [java.io File]))
 
 (def dbspec {:dbtype (environ/env :sql-dbtype)
              :classname (environ/env :sql-dbname)
@@ -13,10 +14,12 @@
              :encrypt "true"
              :loginTimeout "30"})
 
-(defn init! [dev-mode?]
-  (when dev-mode?
-    (let [db (EmbeddedPostgres/builder)
-          db-port (Integer/parseInt (environ/env :sql-port))]
-         (future
-           (.setPort db db-port)
-           (.start db)))))
+(defn init! []
+      (let [dev-mode? (= "true" (environ/env :dev-database))]
+           (when dev-mode?
+                 (let [db-port (Integer/parseInt (environ/env :sql-port))
+                       db (-> (EmbeddedPostgres/builder)
+                              (.setPort db-port)
+                              (.setDataDirectory (File. "resources/private/development-db"))
+                              (.setCleanDataDirectory false))]
+                      (future (.start db))))))

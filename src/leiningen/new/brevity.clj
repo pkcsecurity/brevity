@@ -28,6 +28,10 @@
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
              ["resources/public/css/index.css" (render "resources/public/css/index.css" data)]
+             ["resources/private/migrations/20180716210558-initial-setup.down.sql"
+              (render "resources/private/migrations/20180716210558-initial-setup.down.sql" data)]
+             ["resources/private/migrations/20180716210558-initial-setup.up.sql"
+              (render "resources/private/migrations/20180716210558-initial-setup.up.sql" data)]
              ["src/{{raw-name}}/clj/core.clj" (render "src/brevity/clj/core.clj" data)]
              ["src/{{raw-name}}/clj/roles/core.clj" (render "src/brevity/clj/roles/core.clj" data)]
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]
