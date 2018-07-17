@@ -1,6 +1,7 @@
 (ns {{name}}.clj.models.sql
   (:require [clojure.java.jdbc :as jdbc]
-            [environ.core :as environ])
+            [environ.core :as environ]
+            [hugsql.core :as hug])
   (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]
            [java.io File]))
 
@@ -13,6 +14,8 @@
              :password (environ/env :sql-password)
              :encrypt "true"
              :loginTimeout "30"})
+
+(hug/def-db-fns "{{name}}/sql/article.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]

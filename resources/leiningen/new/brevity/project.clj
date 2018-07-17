@@ -21,6 +21,7 @@
                  [compojure "LATEST"]
                  [com.opentable.components/otj-pg-embedded "LATEST"]
                  [migratus "LATEST"]
+                 [com.layerware/hugsql "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
                  [buddy/buddy-hashers "LATEST"]
