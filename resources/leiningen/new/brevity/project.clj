@@ -20,6 +20,7 @@
                  [ring/ring-json "LATEST"]
                  [compojure "LATEST"]
                  [com.opentable.components/otj-pg-embedded "LATEST"]
+                 [migratus "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
                  [buddy/buddy-hashers "LATEST"]

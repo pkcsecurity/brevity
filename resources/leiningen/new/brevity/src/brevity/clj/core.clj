@@ -11,7 +11,7 @@
 (def port (environ/env :server-port))
 
 (defn -main [& args]
-  (sql/init! (boolean (environ/env :dev-database)))
+  (sql/init!)
   (if (= "development" (environ/env :environment))
     (server/run r/app :host host :port port)
     (server/run-dmc r/app :host host :port port)))
