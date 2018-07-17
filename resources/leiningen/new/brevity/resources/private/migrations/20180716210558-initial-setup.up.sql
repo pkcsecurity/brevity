@@ -1,6 +1,10 @@
 CREATE TABLE article (
-    article_id bigserial primary key,
-    article_name varchar(20) NOT NULL,
-    article_desc text NOT NULL,
-    date_added timestamp default NULL
+    id bigserial primary key,
+    title text NOT NULL,
+    content text NOT NULL,
+    date_added timestamp default now()
 );
+
+INSERT INTO article (title, content) VALUES
+    ('Great article', 'Actually this article doesn`t say much'),
+    ('Better article', 'Just kidding :P');
