@@ -26,6 +26,7 @@
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
                  [buddy/buddy-hashers "LATEST"]
+                 [crypto-random "LATEST"]
                  [io.forward/yaml "LATEST"]
                  [camel-snake-kebab "LATEST"]
                  [org.clojure/spec.alpha "LATEST"]
