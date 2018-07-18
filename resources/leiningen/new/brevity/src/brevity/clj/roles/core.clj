@@ -19,7 +19,7 @@
 
 (def rules
   [{:uris ["/*"]
-    :handler allow-admin}
+    :handler allow-all}
    {:pattern #"^/.*$"
     :handler deny-all}])
 

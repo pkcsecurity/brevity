@@ -11,6 +11,7 @@
 
 (def api-routes
   (u/router "/api/v1/"
+            (u/POST "login" :login)
             (u/context "blog"
                        (u/GET "/" :blog)
                        (u/GET ["/entry/" :id] :blog/entry))))

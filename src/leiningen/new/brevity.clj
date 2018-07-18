@@ -37,6 +37,7 @@
              ["src/{{raw-name}}/clj/routes/core.clj" (render "src/brevity/clj/routes/core.clj" data)]
              ["src/{{raw-name}}/clj/routes/middleware.clj" (render "src/brevity/clj/routes/middleware.clj" data)]
              ["src/{{raw-name}}/clj/routes/blog.clj" (render "src/brevity/clj/routes/blog.clj" data)]
+             ["src/{{raw-name}}/clj/routes/login.clj" (render "src/brevity/clj/routes/login.clj" data)]
              ["src/{{raw-name}}/clj/utils/core.clj" (render "src/brevity/clj/utils/core.clj" data)]
              ["src/{{raw-name}}/clj/views/core.clj" (render "src/brevity/clj/views/core.clj" data)]
              ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]

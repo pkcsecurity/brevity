@@ -7,6 +7,7 @@
             [{{name}}.clj.utils.core :as u]
             [{{name}}.clj.routes.middleware :as middleware]
             [{{name}}.clj.routes.blog :as blog]
+            [{{name}}.clj.routes.login :as login]
             [{{name}}.clj.views.core :as views]
             [{{name}}.cljc.routes :as routing]
             [compojure.core :as r]
@@ -14,7 +15,8 @@
             [environ.core :as environ]))
 
 (def api-views
-  {:blog blog/blog-entries
+  {:login login/login
+   :blog blog/blog-entries
    :blog/entry blog/blog-entry})
 
 (defn page-handler [request handler-name]

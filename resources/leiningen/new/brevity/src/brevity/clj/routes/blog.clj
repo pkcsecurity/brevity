@@ -13,7 +13,7 @@
       (let [{:keys [id]} route-params
             parsed-id (try (Long/parseLong id)
                            (catch NumberFormatException e -1))]
-           (if-let [article (first (sql/article-by-id sql/dbspec {:id parsed-id}))]
+           (if-let [article (sql/article-by-id sql/dbspec {:id parsed-id})]
                    {:status 200
                     :body (public-view article)}
                    {:status 404})))
