@@ -1,7 +1,8 @@
 (ns {{name}}.clj.models.sql
   (:require [clojure.java.jdbc :as jdbc]
             [environ.core :as environ]
-            [hugsql.core :as hug])
+            [hugsql.core :as hug]
+            [hugsql-adapter-case.adapters :as adapters])
   (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]
            [java.io File]))
 
@@ -15,7 +16,10 @@
              :encrypt "true"
              :loginTimeout "30"})
 
-(hug/def-db-fns "{{name}}/sql/article.sql")
+(hug/set-adapter! (adapters/kebab-adapter))
+
+(hug/def-db-fns "{{name}}/sql/articles.sql")
+(hug/def-db-fns "{{name}}/sql/users.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]

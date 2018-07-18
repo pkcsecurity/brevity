@@ -1,9 +1,9 @@
 (ns {{name}}.clj.roles.core
   (:require [buddy.auth :as auth]
             [buddy.auth.accessrules :as authz]
-            [buddy.auth.backends.token :as token]
+            [buddy.auth.backends :as backends]
             [buddy.auth.middleware :as mw]
-            [caesium.crypto.generichash :as crypto]
+            [{{name}}.clj.models.sql :as sql]
             [environ.core :as environ]
             [{{name}}.clj.utils.core :as u]))
 
@@ -13,23 +13,23 @@
 (def token-name (environ/env :auth-token-name))
 
 (def allow-all (constantly true))
+(defn allow-admin [{:keys [identity]}]
+      (:is-admin identity))
 (def deny-all (constantly false))
 
 (def rules
   [{:uris ["/*"]
-    :handler allow-all}
+    :handler allow-admin}
    {:pattern #"^/.*$"
     :handler deny-all}])
 
+(defn token-auth [request token]
+      ; TODO it's probably best to store the tokens hmac'd to guard against timing attacks
+      ; TODO this will need expiry times
+      (first (sql/session-by-id sql/dbspec {:id token})))
+
 (defn wrap-security [app]
-  (let [hashed-secret (crypto/hash (.getBytes secret "UTF-8") {:size 32})
-        auth-backend (token/jwe-backend 
-                       {:secret hashed-secret
-                        :token-name token-name
-                        :options {:iss issuer
-                                  :aud audience
-                                  :alg :a256kw
-                                  :enc :a256gcm}})]
+  (let [auth-backend (backends/token {:authfn token-auth})]
     (-> app
         (authz/wrap-access-rules {:rules rules})
         (mw/wrap-authentication auth-backend)

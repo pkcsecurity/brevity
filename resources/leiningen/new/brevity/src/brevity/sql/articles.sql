@@ -1,11 +1,11 @@
 -- :name insert-article
-insert into article (title, content)
+insert into articles (title, content)
 values (:title, :content);
 
 -- :name article-by-id
-select * from article
-where id = :id;
+select * from articles
+where article_id = :id;
 
 -- :name all-articles
-select * from article
+select * from articles
 order by date_added asc;

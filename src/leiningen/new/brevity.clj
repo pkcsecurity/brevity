@@ -48,6 +48,7 @@
              ["src/{{raw-name}}/cljc/utils.cljc" (render "src/brevity/cljc/utils.cljc" data)]
              ["src/{{raw-name}}/clj/utils/spec.clj" (render "src/brevity/clj/utils/spec.clj" data)]
              ["src/{{raw-name}}/clj/models/sql.clj" (render "src/brevity/clj/models/sql.clj" data)]
-             ["src/{{raw-name}}/sql/article.sql" (render "src/brevity/sql/article.sql" data)]
+             ["src/{{raw-name}}/sql/articles.sql" (render "src/brevity/sql/articles.sql" data)]
+             ["src/{{raw-name}}/sql/users.sql" (render "src/brevity/sql/users.sql" data)]
              ["tool-src/brevity/core.clj" (render "tool-src/brevity/core.clj" data)]
              ["tool-src/templates/entity.clj" (render "tool-src/templates/entity.clj")])))
