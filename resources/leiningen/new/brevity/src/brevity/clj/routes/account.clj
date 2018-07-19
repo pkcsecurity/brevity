@@ -1,4 +1,4 @@
-(ns {{name}}.clj.routes.login
+(ns {{name}}.clj.routes.account
     (:require [{{name}}.clj.models.sql :as sql]
               [buddy.hashers :as hashers]
               [crypto.random :as random]))
@@ -20,8 +20,7 @@
       (let [{:keys [password-hash user-id]} user]
            (if (hashers/check password password-hash)
              {:status 200
-              :body {:token (new-session-token user-id)
-                     :user (select-keys user [:full-name :email])}}
+              :body {:token (new-session-token user-id)}}
              ; No need to fail-with-dummy-hash below, since we've already computed a password hash.
              {:status 404})))
 
@@ -31,3 +30,9 @@
            (if-let [user (sql/user-by-email sql/dbspec {:email email})]
                    (verify-login user password)
                    (fail-with-dummy-hash))))
+
+(defn get-account-info [{:keys [identity]}]
+      (if identity
+        (let [account-info (select-keys identity [:full-name :email])]
+             {:status 200 :body account-info})
+        {:status 404}))

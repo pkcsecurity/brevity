@@ -5,6 +5,7 @@
 (def page-routes
   (u/router "/"
             (u/page "" :index)
+            (u/page "login" :login)
             (u/context "blog"
                        (u/page "/" :blog)
                        (u/page ["/entry/" :id] :blog/entry))))
@@ -12,6 +13,7 @@
 (def api-routes
   (u/router "/api/v1/"
             (u/POST "login" :login)
+            (u/GET "account" :get-account-info)
             (u/context "blog"
                        (u/GET "/" :blog)
                        (u/GET ["/entry/" :id] :blog/entry))))

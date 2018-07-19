@@ -7,7 +7,7 @@
             [{{name}}.clj.utils.core :as u]
             [{{name}}.clj.routes.middleware :as middleware]
             [{{name}}.clj.routes.blog :as blog]
-            [{{name}}.clj.routes.login :as login]
+            [{{name}}.clj.routes.account :as account]
             [{{name}}.clj.views.core :as views]
             [{{name}}.cljc.routes :as routing]
             [compojure.core :as r]
@@ -15,7 +15,8 @@
             [environ.core :as environ]))
 
 (def api-views
-  {:login login/login
+  {:login account/login
+   :get-account-info account/get-account-info
    :blog blog/blog-entries
    :blog/entry blog/blog-entry})
 
