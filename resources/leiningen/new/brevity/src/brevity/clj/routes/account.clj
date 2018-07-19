@@ -31,6 +31,10 @@
                    (verify-login user password)
                    (fail-with-dummy-hash))))
 
+(defn logout [{:keys [identity]}]
+      (sql/delete-session sql/dbspec {:id (:session-id identity)})
+      {:status 200})
+
 (defn get-account-info [{:keys [identity]}]
       (if identity
         (let [account-info (select-keys identity [:full-name :email])]
