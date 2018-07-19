@@ -10,7 +10,7 @@
             [{{name}}.cljs.views.components :as c]))
 
 (defn successful-login [{:keys [token user]}]
-      ; TODO this
+      ; TODO we need to propagate the user change out to some global model
       (cookies/set! :brevity-token token)
       (accountant/navigate! (routes/page :index)))
 

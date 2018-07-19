@@ -1,15 +1,31 @@
 (ns {{name}}.cljs.views.components
   (:require [reagent.core :as r]
+            [reagent.cookies :as cookies]
+            [cljs-http.client :as http]
+            [clojure.core.async :as async :refer [<!]]
             [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.xhr :as xhr]))
+
+(defn logout []
+      (async/go
+        ; TODO propagate this action out to the global model once we've got it
+        (<! (http/post (routes/api :logout)))
+        (cookies/set! :brevity-token nil)
+        ; TODO get rid of this reload call
+        (.reload js/window.location true)))
+
+(defn welcome-message [{:keys [full-name]}]
+      [:div
+       [:div "Welcome, " full-name]
+       [:button {:on-click (fn [e] (.preventDefault e) (logout))}
+        "Logout"]])
 
 (defn header []
       (let [user (xhr/api-atom :get-account-info)]
            (fn []
                [:div
                 (when (= (:status @user) 200)
-                      (let [{:keys [full-name]} (:body @user)]
-                           [:div "Welcome, " full-name]))
+                      [welcome-message (:body @user)])
                 [:p [:a {:href (routes/page :index)} "testbrev1"]]
                 [:hr]])))
 

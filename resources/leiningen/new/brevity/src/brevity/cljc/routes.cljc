@@ -13,6 +13,7 @@
 (def api-routes
   (u/router "/api/v1/"
             (u/POST "login" :login)
+            (u/POST "logout" :logout)
             (u/GET "account" :get-account-info)
             (u/context "blog"
                        (u/GET "/" :blog)

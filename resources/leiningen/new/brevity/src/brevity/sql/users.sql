@@ -26,3 +26,7 @@ update sessions set last_active = now() where session_id = :id;
 -- :command :execute
 insert into sessions (session_id, user_id)
 values (:id, :user-id);
+
+-- :name delete-session
+-- :command :execute
+delete from sessions where session_id = :id;

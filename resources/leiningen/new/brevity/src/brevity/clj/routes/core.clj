@@ -16,6 +16,7 @@
 
 (def api-views
   {:login account/login
+   :logout account/logout
    :get-account-info account/get-account-info
    :blog blog/blog-entries
    :blog/entry blog/blog-entry})
