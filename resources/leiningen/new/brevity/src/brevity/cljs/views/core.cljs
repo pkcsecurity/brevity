@@ -1,6 +1,7 @@
 (ns {{name}}.cljs.views.core
   (:require [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.views.blog :as blog]
+            [{{name}}.cljs.views.account :as account]
             [{{name}}.cljs.views.components :as c]
             [reagent.session :as session]))
 
@@ -9,6 +10,7 @@
        [:h1 "{{name}}: Index"]
        [:ul
         [:li [:a {:href (routes/page :blog)} "Blog"]]
+        [:li [:a {:href (routes/page :login)} "login"]]
         [:li [:a {:href "/borken/link"} "Borken link"]]]])
 
 (defn four-o-four [params]
@@ -18,6 +20,7 @@
 
 (def views
   {:index index
+   :login account/login
    :four-o-four four-o-four
    :blog blog/blog
    :blog/entry blog/blog-entry})

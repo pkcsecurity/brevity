@@ -26,7 +26,7 @@
 (defn token-auth [request token]
       ; TODO it's probably best to store the tokens hmac'd to guard against timing attacks
       ; TODO this will need expiry times
-      (first (sql/session-by-id sql/dbspec {:id token})))
+      (sql/session-by-id sql/dbspec {:id token}))
 
 (defn wrap-security [app]
   (let [auth-backend (backends/token {:authfn token-auth})]
