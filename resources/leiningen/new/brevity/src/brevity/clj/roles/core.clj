@@ -7,10 +7,8 @@
             [environ.core :as environ]
             [{{name}}.clj.utils.core :as u]))
 
-(def secret (environ/env :auth-secret))
-(def issuer (environ/env :auth-issuer))
-(def audience (environ/env :auth-audience))
-(def token-name (environ/env :auth-token-name))
+(def session-timeout (Long/parseLong (environ/env :session-timeout-minutes)))
+(def idle-timeout (Long/parseLong (environ/env :idle-session-timeout-minutes)))
 
 (def allow-all (constantly true))
 (defn allow-admin [{:keys [identity]}]
@@ -25,8 +23,13 @@
 
 (defn token-auth [request token]
       ; TODO it's probably best to store the tokens hmac'd to guard against timing attacks
-      ; TODO this will need expiry times
-      (sql/session-by-id sql/dbspec {:id token}))
+      (let [session (sql/session-by-id sql/dbspec {:id token})
+            {:keys [since-started since-active]} session
+            expired? (>= since-started session-timeout)
+            inactive? (>= since-active idle-timeout)]
+           (when-not (or expired? inactive?)
+                     (sql/keep-session-active sql/dbspec {:id token})
+                     session)))
 
 (defn wrap-security [app]
   (let [auth-backend (backends/token {:authfn token-auth})]
