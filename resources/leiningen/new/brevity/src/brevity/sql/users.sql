@@ -10,9 +10,17 @@ where email = :email;
 
 -- :name session-by-id
 -- :result :one
-select * from sessions
+select
+  *,
+  extract(minute from now() - started) as since_started,
+  extract(minute from now() - last_active) as since_active
+from sessions
   natural join users
 where session_id = :id;
+
+--:name keep-session-active
+-- :command :execute
+update sessions set last_active = now() where session_id = :id;
 
 -- :name insert-session
 -- :command :execute

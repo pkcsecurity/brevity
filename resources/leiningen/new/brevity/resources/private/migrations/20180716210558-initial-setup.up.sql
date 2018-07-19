@@ -30,13 +30,6 @@ create table sessions (
   last_active timestamp default now()
 );
 
--- TODO get rid of these placeholder auth values
-insert into sessions (session_id, user_id)
-  select
-    'session-token-' || email as session_id,
-    user_id
-  from users;
-
 create table articles (
   article_id bigserial primary key,
   title text not null,
