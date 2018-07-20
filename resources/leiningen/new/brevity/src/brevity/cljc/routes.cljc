@@ -12,9 +12,10 @@
 
 (def api-routes
   (u/router "/api/v1/"
-            (u/POST "login" :login)
-            (u/POST "logout" :logout)
-            (u/GET "account" :get-account-info)
+            (u/context "session"
+                       (u/POST :login)
+                       (u/GET :get-account-info)
+                       (u/DELETE :logout))
             (u/context "blog"
                        (u/GET "/" :blog)
                        (u/GET ["/entry/" :id] :blog/entry))))
