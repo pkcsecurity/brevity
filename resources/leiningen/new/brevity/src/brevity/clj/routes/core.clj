@@ -19,7 +19,9 @@
    :logout account/logout
    :get-account-info account/get-account-info
    :blog blog/blog-entries
-   :blog/entry blog/blog-entry})
+   :blog-entry blog/blog-entry
+   :new-blog-entry blog/new-blog-entry
+   :delete-blog-entry blog/delete-blog-entry})
 
 (defn page-handler [request handler-name]
       {:status  200

@@ -10,60 +10,46 @@
             url-parts (concat base-url-parts id-parts)]
            (apply routes/api url-parts)))
 
-(defrecord RestModel [state routes-by-method])
+(defrecord RestModel [state routes-by-method listeners]
+           IDeref
+           ; TODO this seems kind of wrong but is convenient
+           (-deref [_] @state))
 
-(defn rest-get [{:keys [state routes-by-method]} & {:keys [on-success on-error]}]
-      ; TODO de-duplicate this stuff
+(defn init! [{:keys [state]} new-state]
+      ; TODO this also seems kind of wrong but is convenient
+      (reset! state new-state))
+
+(defn rest-request [method {:keys [state routes-by-method listeners]}
+                    & {:keys [data on-success on-error]}]
       ; TODO tie bidi's request methods in with this
       ; TODO instead of routes-by-method, just a list of routes
       (xhr/simple-xhr
-        :get (make-url :get routes-by-method state)
+        method (make-url method routes-by-method @state)
+        :data data
         :on-success
-        (fn [{:keys [body]}]
-            (reset! state body)
+        (fn [{:keys [body] :as response}]
+            (reset! state
+                    (if (= method :delete)
+                      nil
+                      body))
+            (if (not= method :get)
+              (for [listener listeners]
+                   (rest-request :get listener)))
             (when on-success (on-success body)))
         :on-error
         (fn [response]
-            (reset! state nil)
+            (when-not (= method :delete
+                         (reset! state nil)))
             (when on-error (on-error response)))))
 
-(defn rest-post [{:keys [state routes-by-method]} data & {:keys [on-success on-error]}]
-      ; TODO add some listing model and hook this into it
-      (xhr/simple-xhr
-        :post (make-url :post routes-by-method nil)
-        :data data
-        :on-success
-        (fn [{:keys [body]}]
-            (reset! state data)
-            (when on-success (on-success body)))
-        :on-error
-        (fn [response]
-            (reset! state nil)
-            (when on-error (on-error response)))))
+(def rest-get (partial rest-request :get))
 
-(defn rest-put [{:keys [state routes-by-method]} data & {:keys [on-success on-error]}]
-      (xhr/simple-xhr
-        :put (make-url :put routes-by-method state)
-        :data data
-        :on-success
-        (fn [response]
-            (reset! state data)
-            (when on-success (on-success response)))
-        :on-error
-        (fn [response]
-            (reset! state nil)
-            (when on-error (on-error response)))))
+(def rest-post (partial rest-request :post))
 
-(defn rest-delete [{:keys [state routes-by-method]} & {:keys [on-success on-error]}]
-      (xhr/simple-xhr
-        :delete (make-url :delete routes-by-method state)
-        :on-success
-        (fn [response]
-            (reset! state nil)
-            (when on-success (on-success response)))
-        :on-error
-        (fn [response]
-            (when on-error (on-error response)))))
+(def rest-put (partial rest-request :put))
 
-(defn model [& {:keys [get put post delete patch] :as routes-by-method}]
-      (->RestModel (r/atom nil) routes-by-method))
+(def rest-delete (partial rest-request :delete))
+
+(defn model [& {:keys [affects] :as settings}]
+      (let [routes-by-method (select-keys settings [:get :post :put :delete])]
+           (->RestModel (r/atom nil) routes-by-method affects)))

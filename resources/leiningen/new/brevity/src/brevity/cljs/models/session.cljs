@@ -23,7 +23,7 @@
       (reset! message "Logging in...")
       (m/rest-post
         session
-        {:email email :password password}
+        :data {:email email :password password}
         :on-success successful-login
         :on-error #(reset! message "Invalid email or password.")))
 
@@ -31,6 +31,4 @@
       (m/rest-delete
         session
         :on-success
-        (fn []
-            (cookies/set! :brevity-token "")
-            (m/rest-get session))))
+        #(cookies/set! :brevity-token "")))
