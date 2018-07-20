@@ -16,7 +16,11 @@
 (def deny-all (constantly false))
 
 (def rules
-  [{:uris ["/*"]
+  [{:uris ["/admin/*"]
+    :handler allow-admin}
+   {:uris ["/api/v1/admin/*"]
+    :handler allow-admin}
+   {:uris ["/*"]
     :handler allow-all}
    {:pattern #"^/.*$"
     :handler deny-all}])

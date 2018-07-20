@@ -23,7 +23,7 @@
    :login account/login
    :four-o-four four-o-four
    :blog blog/blog
-   :blog/entry blog/blog-entry})
+   :blog-entry blog/blog-entry})
 
 (defn page-contents [route]
       (let [page (:current-page route)
