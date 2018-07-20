@@ -4,28 +4,22 @@
             [cljs-http.client :as http]
             [clojure.core.async :as async :refer [<!]]
             [{{name}}.cljc.routes :as routes]
+            [{{name}}.cljs.models.session :as s]
+            [{{name}}.cljs.models.core :as m]
             [{{name}}.cljs.xhr :as xhr]))
-
-(defn logout []
-      (async/go
-        ; TODO propagate this action out to the global model once we've got it
-        (<! (http/post (routes/api :logout)))
-        (cookies/set! :brevity-token nil)
-        ; TODO get rid of this reload call
-        (.reload js/window.location true)))
 
 (defn welcome-message [{:keys [full-name]}]
       [:div
        [:div "Welcome, " full-name]
-       [:button {:on-click (fn [e] (.preventDefault e) (logout))}
+       [:button {:on-click (fn [e] (.preventDefault e) (s/logout))}
         "Logout"]])
 
 (defn header []
-      (let [user (xhr/api-atom :get-account-info)]
+      (m/rest-get s/session)
+      (let [user (:state s/session)]
            (fn []
                [:div
-                (when (= (:status @user) 200)
-                      [welcome-message (:body @user)])
+                (when @user [welcome-message @user])
                 [:p [:a {:href (routes/page :index)} "testbrev1"]]
                 [:hr]])))
 
@@ -33,6 +27,16 @@
       [:div
        [:hr]
        [:p "External link to " [:a {:href "https://github.com/pkcsecurity/brevity"} "brevity"]]])
+
+(def input-default-style {})
+
+(def input-default-classes "")
+
+(def input-invalid-classes "")
+
+(def input-focus-classes "")
+
+(def input-invalid-focus-classes "")
 
 (defn nop [& _] nil)
 

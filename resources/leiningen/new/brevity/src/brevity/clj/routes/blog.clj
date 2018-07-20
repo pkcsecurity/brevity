@@ -1,8 +1,11 @@
 (ns {{name}}.clj.routes.blog
-    (:require [{{name}}.clj.models.sql :as sql]))
+    (:require [{{name}}.clj.models.sql :as sql]
+              [clojure.set :as s]))
 
 (defn public-view [article]
-      (select-keys article [:id :title :content]))
+      (-> article
+          (select-keys [:article-id :title :content])
+          (s/rename-keys {:article-id :id})))
 
 (defn blog-entries [req]
       (let [articles (sql/all-articles sql/dbspec)]

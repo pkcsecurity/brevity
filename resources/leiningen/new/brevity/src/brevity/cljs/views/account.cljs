@@ -5,24 +5,10 @@
             [reagent.cookies :as cookies]
             [reagent.session :as session]
             [accountant.core :as accountant]
+            [{{name}}.cljs.models.session :as m]
             [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.xhr :as xhr]
             [{{name}}.cljs.views.components :as c]))
-
-(defn successful-login [{:keys [token user]}]
-      ; TODO we need to propagate the user change out to some global model
-      (cookies/set! :brevity-token token)
-      (accountant/navigate! (routes/page :index)))
-
-(defn submit [email password message]
-      (reset! message "Logging in...")
-      (async/go
-        (let [body {:json-params {:email email :password password}}
-              request (http/post (routes/api :login) body)
-              {:keys [status body]} (<! request)]
-             (if (= 200 status)
-               (successful-login body)
-               (reset! message "Invalid email or password.")))))
 
 (defn login []
       (let [email (r/atom "")
@@ -40,5 +26,5 @@
                 [:button {:on-click
                           (fn [e]
                               (.preventDefault e)
-                              (submit @email @password message))}
+                              (m/login @email @password message))}
                  "Login"]])))

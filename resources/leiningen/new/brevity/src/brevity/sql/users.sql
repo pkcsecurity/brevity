@@ -1,7 +1,7 @@
 -- :name insert-user
 -- :command :execute
 insert into users (password_hash, full_name, email)
-values (:password-hash, :full-name, :email);
+values (:passwordhash, :full-name, :email);
 
 -- :name user-by-email
 -- :result :one
@@ -18,7 +18,7 @@ from sessions
   natural join users
 where session_id = :id;
 
---:name keep-session-active
+-- :name keep-session-active
 -- :command :execute
 update sessions set last_active = now() where session_id = :id;
 

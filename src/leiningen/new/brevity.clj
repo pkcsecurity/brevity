@@ -42,6 +42,8 @@
              ["src/{{raw-name}}/clj/views/core.clj" (render "src/brevity/clj/views/core.clj" data)]
              ["src/{{raw-name}}/cljs/core.cljs" (render "src/brevity/cljs/core.cljs" data)]
              ["src/{{raw-name}}/cljs/xhr.cljs" (render "src/brevity/cljs/xhr.cljs" data)]
+             ["src/{{raw-name}}/cljs/models/core.cljs" (render "src/brevity/cljs/models/core.cljs" data)]
+             ["src/{{raw-name}}/cljs/models/session.cljs" (render "src/brevity/cljs/models/session.cljs" data)]
              ["src/{{raw-name}}/cljs/views/blog.cljs" (render "src/brevity/cljs/views/blog.cljs" data)]
              ["src/{{raw-name}}/cljs/views/account.cljs" (render "src/brevity/cljs/views/account.cljs" data)]
              ["src/{{raw-name}}/cljs/views/components.cljs" (render "src/brevity/cljs/views/components.cljs" data)]
