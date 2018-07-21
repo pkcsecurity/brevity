@@ -4,8 +4,8 @@
             [cljs-http.client :as http]
             [clojure.core.async :as async :refer [<!]]
             [{{name}}.cljc.routes :as routes]
-            [{{name}}.cljs.models.session :as s]
-            [{{name}}.cljs.models.core :as m]
+            [{{name}}.cljs.controllers.session :as s]
+            [{{name}}.cljs.models.session :as m]
             [{{name}}.cljs.xhr :as xhr]))
 
 (defn welcome-message [{:keys [full-name]}]
@@ -15,13 +15,12 @@
         "Logout"]])
 
 (defn header []
-      (m/rest-get s/session)
-      (let [user (:state s/session)]
-           (fn []
-               [:div
-                (when @user [welcome-message @user])
-                [:p [:a {:href (routes/page :index)} "testbrev1"]]
-                [:hr]])))
+      (xhr/send-get (routes/api :get-account-info) m/session)
+      (fn []
+          [:div
+           (when @m/session [welcome-message @m/session])
+           [:p [:a {:href (routes/page :index)} "testbrev1"]]
+           [:hr]]))
 
 (defn footer []
       [:div
