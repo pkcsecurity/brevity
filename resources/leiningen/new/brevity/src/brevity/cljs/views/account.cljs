@@ -5,7 +5,7 @@
             [reagent.cookies :as cookies]
             [reagent.session :as session]
             [accountant.core :as accountant]
-            [{{name}}.cljs.models.session :as m]
+            [{{name}}.cljs.controllers.session :as s]
             [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.xhr :as xhr]
             [{{name}}.cljs.views.components :as c]))
@@ -26,5 +26,5 @@
                 [:button {:on-click
                           (fn [e]
                               (.preventDefault e)
-                              (m/login @email @password message))}
+                              (s/login @email @password message))}
                  "Login"]])))

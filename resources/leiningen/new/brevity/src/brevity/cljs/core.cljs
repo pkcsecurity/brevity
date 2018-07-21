@@ -4,6 +4,7 @@
             [accountant.core :as accountant]
             [bidi.bidi :as bidi]
             [{{name}}.cljc.routes :as routes]
+            [{{name}}.cljs.controllers.core :as controllers]
             [{{name}}.cljs.views.core :as views]))
 
 (enable-console-print!)
@@ -17,7 +18,9 @@
         {:nav-handler (fn [path]
                         (let [match (bidi/match-route routes/page-routes path)
                               current-page (:handler match)
-                              route-params (:route-params match)]
+                              route-params (:route-params match)
+                              initializer (controllers/page-initializers current-page)]
+                             (when initializer (initializer route-params))
                              (session/put! :route {:current-page current-page
                                                    :route-params route-params})))
          :path-exists? (fn [path]

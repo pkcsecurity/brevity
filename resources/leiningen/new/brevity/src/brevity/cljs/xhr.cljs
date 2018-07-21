@@ -11,6 +11,7 @@
               {}))
 
 (defn api-atom [& route-def]
+      ; TODO delete
       (let [result (r/atom nil)]
            (async/go
              (let [request (http/get (apply routes/api route-def)
@@ -19,15 +20,28 @@
                   (reset! result response)))
            result))
 
-(defn simple-xhr [method url & {:keys [data on-success on-error]}]
+(defn simple-xhr [method url & {:keys [data on-success on-error success-atom error-atom query-params]}]
       (async/go
         (let [request (http/request
                         {:method method
                          :url url
                          :json-params data
+                         :query-params query-params
                          :headers (auth-header)})
               response (<! request)
-              {:keys [status]} response]
-             (if (= 200 status) ; TODO this should actually let through any 200-series code
-               (when on-success (on-success response))
-               (when on-error (on-error response))))))
+              {:keys [status body]} response]
+             (if (<= 200 status 299)
+               (do
+                 (when on-success (on-success response))
+                 (when success-atom (reset! success-atom body)))
+               (do
+                 (when on-error (on-error response))
+                 (when error-atom (reset! error-atom body)))))))
+
+(def send-get (partial simple-xhr :get))
+
+(def send-post (partial simple-xhr :post))
+
+(def send-put (partial simple-xhr :put))
+
+(def send-delete (partial simple-xhr :delete))
