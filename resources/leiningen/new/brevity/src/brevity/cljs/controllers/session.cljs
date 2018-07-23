@@ -25,4 +25,6 @@
       (xhr/send-delete
         @s/session
         :on-success
-        #(cookies/set! :brevity-token "")))
+        (fn []
+            (cookies/set! :brevity-token "")
+            (reset! s/session nil))))
