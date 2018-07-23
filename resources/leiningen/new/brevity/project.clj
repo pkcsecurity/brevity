@@ -34,6 +34,7 @@
                  [stencil "0.5.0"]
                  [org.clojure/clojurescript "LATEST"]
                  [hiccup "LATEST"]
+                 [garden "LATEST"]
                  [reagent "LATEST"]
                  [reagent-utils "LATEST"]
                  [cljs-http "LATEST"]

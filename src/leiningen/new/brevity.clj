@@ -28,6 +28,7 @@
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
              ["resources/public/css/index.css" (render "resources/public/css/index.css" data)]
+             ["resources/public/css/tachyons.min.css" (render "resources/public/css/tachyons.min.css" data)]
              ["resources/private/migrations/20180716210558-initial-setup.down.sql"
               (render "resources/private/migrations/20180716210558-initial-setup.down.sql" data)]
              ["resources/private/migrations/20180716210558-initial-setup.up.sql"
