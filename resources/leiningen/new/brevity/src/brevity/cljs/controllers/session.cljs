@@ -8,7 +8,6 @@
 
 (defn successful-login [{:keys [body]}]
       (let [{:keys [token user]} body]
-           ; TODO the welcome message disappears
            (cookies/set! :brevity-token token)
            (accountant/navigate! (routes/page :index))
            (xhr/send-get (routes/api :get-account-info)

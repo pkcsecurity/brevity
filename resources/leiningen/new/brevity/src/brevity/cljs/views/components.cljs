@@ -15,7 +15,7 @@
         "Logout"]])
 
 (defn header []
-      (xhr/send-get (routes/api :get-account-info) m/session)
+      (xhr/send-get (routes/api :get-account-info) :success-atom m/session)
       (fn []
           [:div
            (when @m/session [welcome-message @m/session])
