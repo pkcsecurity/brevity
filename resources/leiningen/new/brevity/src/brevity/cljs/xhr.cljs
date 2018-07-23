@@ -10,16 +10,6 @@
               {"Authorization" (str "Token " token)}
               {}))
 
-(defn api-atom [& route-def]
-      ; TODO delete
-      (let [result (r/atom nil)]
-           (async/go
-             (let [request (http/get (apply routes/api route-def)
-                                     {:headers (auth-header)})
-                   response (<! request)]
-                  (reset! result response)))
-           result))
-
 (defn simple-xhr [method url & {:keys [data on-success on-error success-atom error-atom query-params]}]
       (async/go
         (let [request (http/request
