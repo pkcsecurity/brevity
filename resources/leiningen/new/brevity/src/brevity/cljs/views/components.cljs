@@ -16,7 +16,7 @@
          [:div
           [:div.pa3
            [:i.fas.fa-chevron-down.mr2]
-           "Welcome, " full-name]
+           full-name]
           [:div.bg-gray.pa3.dim.pointer.child.absolute.w-100.dim.tc
            {:on-click (fn [e] (.preventDefault e) (s/logout))}
            "Logout"]]
