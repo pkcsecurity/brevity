@@ -1,8 +1,5 @@
 (ns {{name}}.cljs.views.components
   (:require [reagent.core :as r]
-            [reagent.cookies :as cookies]
-            [cljs-http.client :as http]
-            [clojure.core.async :as async :refer [<!]]
             [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.controllers.session :as s]
             [{{name}}.cljs.models.session :as m]
@@ -10,7 +7,7 @@
 
 (defn header-link [href text class & attrs]
       [:div
-       {:class (str "fl bg-blue pa3 dim pointer " class)}
+       {:class (str "fl bg-dark-gray pa3 dim pointer " class)}
        [:a.no-underline.white {:href href} text]])
 
 (defn welcome-message [{:keys [full-name] :as session}]
@@ -20,7 +17,7 @@
           [:div.pa3
            [:i.fas.fa-chevron-down.mr2]
            "Welcome, " full-name]
-          [:div.bg-light-blue.pa3.dim.pointer.child.absolute.w-100.dim.tc
+          [:div.bg-gray.pa3.dim.pointer.child.absolute.w-100.dim.tc
            {:on-click (fn [e] (.preventDefault e) (s/logout))}
            "Logout"]]
          [header-link (routes/page :login) "Login" "fr"])])
@@ -28,18 +25,27 @@
 (defn header []
       (xhr/send-get (routes/api :get-account-info) :success-atom m/session)
       (fn []
-          [:header.white.cf.bg-blue
+          [:header.white.cf.bg-dark-gray.tracked-mega.small-caps
            [header-link (routes/page :index) "Home" "fl"]
            [header-link (routes/page :blog) "Blog" "fl"]
            [welcome-message @m/session]]))
 
+(defn loading-spinner []
+      [:div.tc.mv3.gray
+       [:i.fas.fa-spinner.fa-pulse]])
+
 (defn footer []
-      [:div
-       [:p "External link to " [:a {:href "https://github.com/pkcsecurity/brevity"} "brevity"]]])
+      [:div.tc.mv2
+       "External link to " [:a {:href "https://github.com/pkcsecurity/brevity"} "brevity"]])
+
+(defn button [text on-click]
+      [:button.pointer.grow.w-100.bg-light-gray.b--dark-gray.ba.bw2.tc.tracked.pv1
+       {:on-click on-click}
+       text])
 
 (def input-default-style {})
 
-(def input-default-classes "")
+(def input-default-classes "w-100 b--grey ba bt bl")
 
 (def input-invalid-classes "")
 

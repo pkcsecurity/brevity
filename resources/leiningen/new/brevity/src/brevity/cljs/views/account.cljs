@@ -1,10 +1,5 @@
 (ns {{name}}.cljs.views.account
-  (:require [cljs-http.client :as http]
-            [clojure.core.async :as async :refer [<!]]
-            [reagent.core :as r]
-            [reagent.cookies :as cookies]
-            [reagent.session :as session]
-            [accountant.core :as accountant]
+  (:require [reagent.core :as r]
             [{{name}}.cljs.controllers.session :as s]
             [{{name}}.cljc.routes :as routes]
             [{{name}}.cljs.xhr :as xhr]
@@ -15,16 +10,15 @@
             password (r/atom "")
             message (r/atom "")]
            (fn []
-               [:form
+               [:form.mw5.center
                 [:div @message]
-                [:div
-                 [:label {:for "email"} "Email Address"]
-                 [c/input :id "email" :type "email" :value email]]
-                [:div
-                 [:label {:for "password"} "Password"]
-                 [c/input :id "password" :type "password" :value password]]
-                [:button {:on-click
-                          (fn [e]
-                              (.preventDefault e)
-                              (s/login @email @password message))}
-                 "Login"]])))
+                [:div.mv3
+                 [:label.db.f6 {:for "email"} "Email Address"]
+                 [c/input :id "email" :type "email" :value email :class "w-100"]]
+                [:div.mv3
+                 [:label.db.f6 {:for "password"} "Password"]
+                 [c/input :id "password" :type "password" :value password :class "w-100"]]
+                [c/button "Login"
+                 (fn [e]
+                     (.preventDefault e)
+                     (s/login @email @password message))]])))
