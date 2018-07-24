@@ -23,6 +23,7 @@
 
 (defn logout []
       (xhr/send-delete
+        (routes/api :logout)
         @s/session
         :on-success
         (fn []
