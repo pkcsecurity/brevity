@@ -8,23 +8,33 @@
             [{{name}}.cljs.models.session :as m]
             [{{name}}.cljs.xhr :as xhr]))
 
-(defn welcome-message [{:keys [full-name]}]
+(defn header-link [href text class & attrs]
       [:div
-       [:div "Welcome, " full-name]
-       [:button {:on-click (fn [e] (.preventDefault e) (s/logout))}
-        "Logout"]])
+       {:class (str "fl bg-blue pa3 dim pointer " class)}
+       [:a.no-underline.white {:href href} text]])
+
+(defn welcome-message [{:keys [full-name] :as session}]
+      [:div.fr.relative.hide-child
+       (if session
+         [:div
+          [:div.pa3
+           [:i.fas.fa-chevron-down.mr2]
+           "Welcome, " full-name]
+          [:div.bg-light-blue.pa3.dim.pointer.child.absolute.w-100.dim.tc
+           {:on-click (fn [e] (.preventDefault e) (s/logout))}
+           "Logout"]]
+         [header-link (routes/page :login) "Login" "fr"])])
 
 (defn header []
       (xhr/send-get (routes/api :get-account-info) :success-atom m/session)
       (fn []
-          [:div
-           (when @m/session [welcome-message @m/session])
-           [:p [:a {:href (routes/page :index)} "testbrev1"]]
-           [:hr]]))
+          [:header.white.cf.bg-blue
+           [header-link (routes/page :index) "Home" "fl"]
+           [header-link (routes/page :blog) "Blog" "fl"]
+           [welcome-message @m/session]]))
 
 (defn footer []
       [:div
-       [:hr]
        [:p "External link to " [:a {:href "https://github.com/pkcsecurity/brevity"} "brevity"]]])
 
 (def input-default-style {})

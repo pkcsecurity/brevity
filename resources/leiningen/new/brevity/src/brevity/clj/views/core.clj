@@ -10,22 +10,25 @@
     [:body {:font-size "16px"
             :line-height 1.5}]
     [:html :body
-     {:font-family ["'Roboto'"]
-      :color "#222"
+     {:color "#222"
       :font-weight 700}]))
 
-(defn style [href]
+(defn style [href & {:keys [integrity]}]
       [:link
        {:rel "stylesheet"
-        :href href}])
+        :href href
+        :integrity integrity
+        :crossorigin :anonymous}])
 
 (def index
   (html/html {:mode :html}
-             [:head
+             [:head.avenir
               [:meta {:charset "utf-8"}]
               [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
               [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
               (style "/css/tachyons.min.css")
+              (style "https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+                     :integrity "sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ")
               [:title "{{name}}"]]
              [:body
               [:div#app]

@@ -28,7 +28,8 @@
 (defn page-contents [route]
       (let [page (:current-page route)
             params (:route-params route)]
-           ((views page) params)))
+           [:div.mw8.pv3.ph5.center
+            [(views page) params]]))
 
 (defn layout []
       (fn []
