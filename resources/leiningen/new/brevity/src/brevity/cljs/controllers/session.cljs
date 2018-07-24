@@ -24,7 +24,7 @@
 (defn logout []
       (xhr/send-delete
         (routes/api :logout)
-        @s/session
+        :data @s/session
         :on-success
         (fn []
             (cookies/set! :brevity-token "")
