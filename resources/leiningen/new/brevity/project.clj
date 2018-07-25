@@ -64,7 +64,7 @@
                  :cache-analysis true
                  :pretty-print true}}
                {:id "release"
-                :source-paths ["src/cljs"]
+                :source-paths ["src/{{raw-name}}/cljs"]
                 :compiler
                 {:output-to "resources/public/js/release/index.js"
                  :source-map "resources/public/js/release/index.js.map"

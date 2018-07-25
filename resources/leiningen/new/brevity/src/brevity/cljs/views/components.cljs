@@ -99,15 +99,21 @@
                                     (when (= (.-key e) "Enter")
                                           (on-key-press e)))
                   :on-change (fn [e]
-                                 (reset! value (.. e -target -value))
+                                 (reset! value
+                                         (if (= type :checkbox)
+                                           (.. e -target -checked)
+                                           (.. e -target -value)))
                                  (on-change value e))
                   :value @value
                   :class (str
-                           "input pa2 border p shadow-none outline-none w-100 ba bt bl bw1 "
+                           "input pa2 border p shadow-none outline-none ba bt bl bw1 "
                            (cond
                              (and (not valid?) @focus?) input-invalid-focus-classes
                              (not valid?) input-invalid-classes
                              @focus? input-focus-classes
                              :else input-default-classes)
+                           (if (= type :checkbox)
+                             " dib wa fr "
+                             " w-100 ")
                            class)
                   :style (merge input-default-style style)}]])))
