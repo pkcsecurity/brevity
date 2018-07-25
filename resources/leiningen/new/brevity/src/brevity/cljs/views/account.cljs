@@ -12,12 +12,8 @@
            (fn []
                [:form.mw5.center
                 [:div @message]
-                [:div.mv3
-                 [:label.db.f6 {:for "email"} "Email Address"]
-                 [c/input :id "email" :type "email" :value email :class "w-100"]]
-                [:div.mv3
-                 [:label.db.f6 {:for "password"} "Password"]
-                 [c/input :id "password" :type "password" :value password :class "w-100"]]
+                [c/input :label-text "Email Address" :id "email" :type "email" :value email]
+                [c/input :label-text "Password" :id "password" :type "password" :value password]
                 [c/button "Login"
                  (fn [e]
                      (.preventDefault e)

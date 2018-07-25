@@ -45,17 +45,25 @@
 
 (def input-default-style {})
 
-(def input-default-classes "w-100 b--grey ba bt bl")
+(def input-default-classes "b--light-gray")
 
-(def input-invalid-classes "")
+(def input-invalid-classes "b--red")
 
-(def input-focus-classes "")
+(def input-focus-classes "b--gray")
 
-(def input-invalid-focus-classes "")
+(def input-invalid-focus-classes "light-red")
 
 (defn nop [& _] nil)
 
-(defn input [& {:keys [class style value placeholder valid? on-change type autofocus? id on-key-press on-blur on-focus]
+(defn wrap-label [label-text id component]
+      (if label-text
+        [:div.mv3.cf
+         [:label.fl.db.f6 {:for id} label-text]
+         component]
+        component))
+
+(defn input [& {:keys [label-text class style value placeholder valid? on-change type
+                       autofocus? id on-key-press on-blur on-focus]
                 :or {on-change nop
                      on-focus nop
                      on-blur nop
@@ -74,30 +82,32 @@
                         valid? true
                         type :text
                         tag-type :input}}]
-               [tag-type
-                {:type type
-                 :autoFocus autofocus?
-                 :id (when id id)
-                 :placeholder placeholder
-                 :on-focus (fn []
-                               (reset! focus? true)
-                               (on-focus))
-                 :on-blur (fn []
-                              (reset! focus? false)
-                              (on-blur))
-                 :on-key-press (fn [e]
-                                   (when (= (.-key e) "Enter")
-                                         (on-key-press e)))
-                 :on-change (fn [e]
-                                (reset! value (.. e -target -value))
-                                (on-change value e))
-                 :value @value
-                 :class (str
-                          "input px2 border p shadow-none outline-none "
-                          (cond
-                            (and (not valid?) @focus?) input-invalid-focus-classes
-                            (not valid?) input-invalid-classes
-                            @focus? input-focus-classes
-                            :else input-default-classes)
-                          class)
-                 :style (merge input-default-style style)}])))
+               [wrap-label
+                label-text id
+                [tag-type
+                 {:type type
+                  :autoFocus autofocus?
+                  :id (when id id)
+                  :placeholder placeholder
+                  :on-focus (fn []
+                                (reset! focus? true)
+                                (on-focus))
+                  :on-blur (fn []
+                               (reset! focus? false)
+                               (on-blur))
+                  :on-key-press (fn [e]
+                                    (when (= (.-key e) "Enter")
+                                          (on-key-press e)))
+                  :on-change (fn [e]
+                                 (reset! value (.. e -target -value))
+                                 (on-change value e))
+                  :value @value
+                  :class (str
+                           "input pa2 border p shadow-none outline-none w-100 ba bt bl bw1 "
+                           (cond
+                             (and (not valid?) @focus?) input-invalid-focus-classes
+                             (not valid?) input-invalid-classes
+                             @focus? input-focus-classes
+                             :else input-default-classes)
+                           class)
+                  :style (merge input-default-style style)}]])))
