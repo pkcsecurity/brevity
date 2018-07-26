@@ -27,7 +27,6 @@
              ["profiles.clj" (render "profiles.clj" data)]
              ["README.md" (render "README.md" data)]
              [".gitignore" (render "gitignore" data)]
-             ["resources/public/css/index.css" (render "resources/public/css/index.css" data)]
              ["resources/public/css/tachyons.min.css" (render "resources/public/css/tachyons.min.css" data)]
              ["resources/private/migrations/20180716210558-initial-setup.down.sql"
               (render "resources/private/migrations/20180716210558-initial-setup.down.sql" data)]
@@ -54,6 +53,7 @@
              ["src/{{raw-name}}/cljs/controllers/session.cljs" (render "src/brevity/cljs/controllers/session.cljs" data)]
              ["src/{{raw-name}}/cljc/routes.cljc" (render "src/brevity/cljc/routes.cljc" data)]
              ["src/{{raw-name}}/cljc/utils.cljc" (render "src/brevity/cljc/utils.cljc" data)]
+             ["src/{{raw-name}}/cljc/validators.cljc" (render "src/brevity/cljc/validators.cljc" data)]
              ["src/{{raw-name}}/clj/utils/spec.clj" (render "src/brevity/clj/utils/spec.clj" data)]
              ["src/{{raw-name}}/clj/models/sql.clj" (render "src/brevity/clj/models/sql.clj" data)]
              ["src/{{raw-name}}/sql/articles.sql" (render "src/brevity/sql/articles.sql" data)]

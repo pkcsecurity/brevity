@@ -11,6 +11,7 @@
               {}))
 
 (defn simple-xhr [method url & {:keys [data on-success on-error success-atom error-atom query-params]}]
+      ; TODO don't set the auth header on external requests
       (async/go
         (let [request (http/request
                         {:method method

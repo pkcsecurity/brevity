@@ -71,6 +71,8 @@
                      on-key-press nop
                      valid? true
                      type :text}}]
+      ; TODO explore separating out components as a library
+      ; TODO tie this into the cljc validators
       (let [focus? (r/atom false)
             value (or value (r/atom ""))]
            (fn [& {:keys [placeholder valid? on-change type autofocus? id on-key-press on-blur on-focus tag-type]
