@@ -23,6 +23,7 @@
              "src/{{raw-name}}/clj/external"
              "src/{{raw-name}}/clj/models"
              "src/{{raw-name}}/clj/shutdown"
+             ["Procfile" (render "Procfile" data)]
              ["project.clj" (render "project.clj" data)]
              ["profiles.clj" (render "profiles.clj" data)]
              ["README.md" (render "README.md" data)]
