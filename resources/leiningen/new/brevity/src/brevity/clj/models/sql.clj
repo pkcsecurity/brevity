@@ -18,8 +18,8 @@
 
 (hug/set-adapter! (adapters/kebab-adapter))
 
-(hug/def-db-fns "{{name}}/sql/articles.sql")
-(hug/def-db-fns "{{name}}/sql/users.sql")
+(hug/def-db-fns "{{raw-name}}/sql/articles.sql")
+(hug/def-db-fns "{{raw-name}}/sql/users.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]

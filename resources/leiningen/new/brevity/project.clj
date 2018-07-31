@@ -3,8 +3,11 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :min-lein-version "2.7.1"
   :profiles {:dev [:project/dev :profiles/dev]
              :test [:project/test :profiles/test]
+             :uberjar {:main {{name}}.clj.core :aot :all
+                       :auto-clean false}
              ;; only edit :profiles/* in profiles.clj
              :profiles/dev  {}
              :profiles/test {}
@@ -12,6 +15,7 @@
                            :plugins [[lein-auto "LATEST"]]}
              :project/test {}}
   :aliases {"brevity" ["run" "-m" "brevity.core/handle-commands" :project/main]}
+  :resource-paths ["resources"]
   :main ^:skip-aot {{namespace}}
   :dependencies [[org.clojure/clojure "LATEST"]
                  [org.immutant/web "LATEST"]
