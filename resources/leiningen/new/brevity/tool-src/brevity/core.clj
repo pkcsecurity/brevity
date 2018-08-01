@@ -43,23 +43,28 @@
 (defn migration-id [[id-command]]
       (Long/parseLong id-command))
 
-(defn migrate [name [c & commands]]
+(defn wait-for-db! []
       (try
         (when-let [pending-embedded-database (sql/init!)]
                   @pending-embedded-database)
-        (catch Exception e
+        (catch Exception _
           (println "Could not spin up a development database, so we'll attempt to connect to an"
-                   "already-running instance.")))
-      (case c
-            ; If you want to run migrations against an application as it is running in development
-            ; mode, you can run "DEV_DATABASE=false lein brevity migrate" and the migration engine
-            ; will connect to the embedded database without trying to spin up its own.
-            "new" (migrate-new commands)
-            "up" (migratus/up migratus-spec (migration-id commands))
-            "down" (migratus/down migratus-spec (migration-id commands))
-            "undo" (migratus/rollback migratus-spec)
-            nil (migratus/migrate migratus-spec)
-            (println "Not a valid migrate command.")))
+                   "already-running instance."))))
+
+(defn migrate [name [c & commands]]
+      (let [embedded-postgres (wait-for-db!)]
+           (case c
+                 ; If you want to run migrations against an application as it is running in development
+                 ; mode, you can run "DEV_DATABASE=false lein brevity migrate" and the migration engine
+                 ; will connect to the embedded database without trying to spin up its own.
+                 "new" (migrate-new commands)
+                 "up" (migratus/up migratus-spec (migration-id commands))
+                 "down" (migratus/down migratus-spec (migration-id commands))
+                 "undo" (migratus/rollback migratus-spec)
+                 nil (migratus/migrate migratus-spec)
+                 (println "Not a valid migrate command."))
+           (when embedded-postgres
+                 (.close embedded-postgres))))
 
 (defn handle-commands [c & [command & commands]]
       (let [name (first (clojure.string/split c #"\."))]
