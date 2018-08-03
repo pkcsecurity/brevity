@@ -1,4 +1,5 @@
 (ns {{name}}.cljs.xhr
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs-http.client :as http]
             [reagent.core :as r]
             [reagent.cookies :as cookies]
@@ -11,7 +12,8 @@
               {}))
 
 (defn simple-xhr [method url & {:keys [data on-success on-error success-atom error-atom query-params]}]
-      (async/go
+      ; TODO don't set the auth header on external requests
+      (go
         (let [request (http/request
                         {:method method
                          :url url

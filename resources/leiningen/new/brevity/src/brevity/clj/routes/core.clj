@@ -10,8 +10,10 @@
             [{{name}}.clj.routes.account :as account]
             [{{name}}.clj.views.core :as views]
             [{{name}}.cljc.routes :as routing]
+            [{{name}}.cljc.validators :as v]
             [compojure.core :as r]
             [compojure.route :as route]
+            [clojure.string :as s]
             [environ.core :as environ]))
 
 (def api-views
@@ -28,9 +30,22 @@
        :headers {"Content-Type" "text/html"}
        :body    views/index})
 
-(defn api-view [request handler-name]
+(defn validation-errors [body route]
+      (when-let [validator (v/validators route)]
+                (->> validator
+                     (map
+                       (fn [[field field-validator]]
+                           [field (field-validator (body field))]))
+                     (remove (fn [[field result]] (nil? result)))
+                     (into {}))))
+
+(defn api-view [{:keys [body] :as request} handler-name]
       (when-let [view-fn (api-views handler-name)]
-                (view-fn request)))
+                (let [errors (validation-errors body handler-name)]
+                     (if (empty? errors)
+                       (view-fn request)
+                       {:status 400
+                        :body {:errors errors}}))))
 
 (r/defroutes routes
              (route/resources "/")

@@ -7,11 +7,10 @@
 
 (defn index [params]
       [:div
-       [:h1 "{{name}}: Index"]
-       [:ul
-        [:li [:a {:href (routes/page :blog)} "Blog"]]
-        [:li [:a {:href (routes/page :login)} "login"]]
-        [:li [:a {:href "/borken/link"} "Borken link"]]]])
+       [:h1 "{{name}}"]
+       [:p
+        "Brevity's default styles are pretty basic.  To tailor them to your project, see "
+        [:a {:href "https://tachyons.io/docs/"} "the tachyons documentation"] "."]])
 
 (defn four-o-four [params]
       [:div
@@ -28,7 +27,8 @@
 (defn page-contents [route]
       (let [page (:current-page route)
             params (:route-params route)]
-           ((views page) params)))
+           [:div.mw7.pv3.ph5.center
+            [(views page) params]]))
 
 (defn layout []
       (fn []

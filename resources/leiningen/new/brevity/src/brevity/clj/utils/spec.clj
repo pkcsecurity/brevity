@@ -25,13 +25,3 @@
     string?
     utils/not-blank?
     (partial re-matches #"[0-9]+")))
-
-(def uuid
-  (s/and
-    (string-of-length 36)
-    #(try
-       (utils/uuid %)
-       (catch Exception _))))
-
-
-

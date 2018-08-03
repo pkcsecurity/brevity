@@ -22,3 +22,7 @@
 ; https://closure-library.googlecode.com/git-history/docs/local_closure_goog_format_emailaddress.js.source.html#line142
 (defn valid-email? [s]
   (re-matches #"^[+a-zA-Z0-9_.!#$%&'*\/=?^`{|}~-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z0-9]{2,63}$" s))
+
+(defn parse-long [x]
+      (try (Long/parseLong x)
+           (catch Exception _ nil)))

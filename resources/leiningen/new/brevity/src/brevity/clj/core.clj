@@ -7,8 +7,8 @@
             [immutant.web :as server])
   (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]))
 
-(def host (environ/env :server-host))
-(def port (environ/env :server-port))
+(def host (environ/env :host))
+(def port (environ/env :port))
 
 (defn -main [& args]
   (sql/init!)

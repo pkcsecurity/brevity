@@ -4,11 +4,12 @@
             [buddy.auth.backends :as backends]
             [buddy.auth.middleware :as mw]
             [{{name}}.clj.models.sql :as sql]
+            [{{name}}.clj.utils.core :as utils]
             [environ.core :as environ]
             [{{name}}.clj.utils.core :as u]))
 
-(def session-timeout (Long/parseLong (environ/env :session-timeout-minutes)))
-(def idle-timeout (Long/parseLong (environ/env :idle-session-timeout-minutes)))
+(def session-timeout (or (utils/parse-long (environ/env :session-timeout-minutes)) 150000))
+(def idle-timeout (or (utils/parse-long (environ/env :idle-session-timeout-minutes)) 15))
 
 (def allow-all (constantly true))
 (defn allow-admin [{:keys [identity]}]
