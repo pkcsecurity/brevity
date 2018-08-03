@@ -28,3 +28,6 @@ pom.xml.asc
 /private
 
 profiles.clj
+
+figwheel_server.log
+.rebel_readline_history
