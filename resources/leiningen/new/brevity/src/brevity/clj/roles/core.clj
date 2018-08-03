@@ -8,8 +8,8 @@
             [environ.core :as environ]
             [{{name}}.clj.utils.core :as u]))
 
-(def session-timeout (or (utils/parse-long (environ/env :session-timeout-minutes)) "150000"))
-(def idle-timeout (or (utils/parse-long (environ/env :idle-session-timeout-minutes)) "15"))
+(def session-timeout (or (utils/parse-long (environ/env :session-timeout-minutes)) 150000))
+(def idle-timeout (or (utils/parse-long (environ/env :idle-session-timeout-minutes)) 15))
 
 (def allow-all (constantly true))
 (defn allow-admin [{:keys [identity]}]
