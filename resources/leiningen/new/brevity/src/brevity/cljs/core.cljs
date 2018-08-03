@@ -20,9 +20,9 @@
                               current-page (:handler match)
                               route-params (:route-params match)
                               initializer (controllers/page-initializers current-page)]
-                             (when initializer (initializer route-params))
                              (session/put! :route {:current-page current-page
-                                                   :route-params route-params})))
+                                                   :route-params route-params})
+                             (when initializer (initializer route-params))))
          :path-exists? (fn [path]
                            (boolean (bidi/match-route routes/page-routes path)))})
       (accountant/dispatch-current!)
