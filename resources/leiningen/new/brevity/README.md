@@ -6,11 +6,18 @@ On MacOS, run:
 brew install clojure leiningen postgresql
 ```
 
-Then, to start the app:
+Then, to start the app, open two tabs in your terminal:
+- For the backend:
 ```bash
 lein brevity migrate
 lein run
 ```
+
+- For the frontend:
+```bash
+lein figwheel dev
+```
+
 ## Guide
 
 ### Database migrations
