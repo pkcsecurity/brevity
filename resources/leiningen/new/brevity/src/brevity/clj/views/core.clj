@@ -29,6 +29,7 @@
               (style "/css/tachyons.min.css")
               (style "https://use.fontawesome.com/releases/v5.1.1/css/all.css"
                      :integrity "sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ")
+              [:style core-css]
               [:title "{{name}}"]]
              [:body.avenir
               [:div#app]
