@@ -2,16 +2,19 @@
   (:require [clojure.java.jdbc :as jdbc]
             [environ.core :as environ]
             [hugsql.core :as hug]
-            [hugsql-adapter-case.adapters :as adapters])
+            [hugsql-adapter-case.adapters :as adapters]
+            [conman.core :as conman])
   (:import [com.opentable.db.postgres.embedded EmbeddedPostgres]
            [java.io File]))
 
+; Brevity doesn't yet do any connection pooling by default.  If you have a need for connection pooling, see:
+; https://github.com/luminus-framework/conman#using-bind-connection
 (def dbspec (environ/env :database-url))
 
 (hug/set-adapter! (adapters/kebab-adapter))
 
-(hug/def-db-fns "{{raw-name}}/sql/articles.sql")
-(hug/def-db-fns "{{raw-name}}/sql/users.sql")
+(conman/bind-connection dbspec "{{raw-name}}/sql/articles.sql")
+(conman/bind-connection dbspec "{{raw-name}}/sql/users.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]

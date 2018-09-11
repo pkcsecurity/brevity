@@ -28,12 +28,12 @@
 
 (defn token-auth [request token]
       ; TODO it's probably best to store the tokens hmac'd to guard against timing attacks
-      (when-let [session (sql/session-by-id sql/dbspec {:id token})]
+      (when-let [session (sql/session-by-id {:id token})]
                 (let [{:keys [since-started since-active]} session
                       expired? (>= since-started session-timeout)
                       inactive? (>= since-active idle-timeout)]
                      (when-not (or expired? inactive?)
-                               (sql/keep-session-active sql/dbspec {:id token})
+                               (sql/keep-session-active {:id token})
                                session))))
 
 (defn wrap-security [app]

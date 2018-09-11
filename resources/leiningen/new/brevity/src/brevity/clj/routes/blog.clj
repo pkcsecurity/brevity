@@ -8,7 +8,7 @@
           (s/rename-keys {:article-id :id})))
 
 (defn blog-entries [req]
-      (let [articles (sql/all-articles sql/dbspec)]
+      (let [articles (sql/all-articles)]
            {:status 200
             :body   (map public-view articles)}))
 
@@ -16,13 +16,13 @@
       (let [{:keys [id]} route-params
             parsed-id (try (Long/parseLong id)
                            (catch NumberFormatException e -1))]
-           (if-let [article (sql/article-by-id sql/dbspec {:id parsed-id})]
+           (if-let [article (sql/article-by-id {:id parsed-id})]
                    {:status 200
                     :body (public-view article)}
                    {:status 404})))
 
 (defn new-blog-entry [{:keys [body]}]
-      (let [article (sql/insert-article sql/dbspec (select-keys body [:title :content]))]
+      (let [article (sql/insert-article (select-keys body [:title :content]))]
            {:status 200
             :body article}))
 
@@ -30,5 +30,5 @@
       (let [{:keys [id]} route-params
             parsed-id (try (Long/parseLong id)
                            (catch NumberFormatException e -1))]
-           (sql/delete-article sql/dbspec {:id parsed-id})
+           (sql/delete-article {:id parsed-id})
            {:status 200}))

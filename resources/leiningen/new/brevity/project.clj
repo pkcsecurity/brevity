@@ -27,6 +27,7 @@
                  [migratus "LATEST"]
                  [com.layerware/hugsql "LATEST"]
                  [hugsql-adapter-case "LATEST"]
+                 [conman "LATEST"]
                  [buddy/buddy-auth "LATEST"]
                  [buddy/buddy-sign "LATEST"]
                  [buddy/buddy-hashers "LATEST"]

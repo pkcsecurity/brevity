@@ -13,7 +13,7 @@
 
 (defn new-session-token [user-id]
       (let [token (random/base64 50)]
-           (sql/insert-session sql/dbspec {:id token :user-id user-id})
+           (sql/insert-session {:id token :user-id user-id})
            token))
 
 (defn verify-login [user password]
@@ -27,12 +27,12 @@
 ; TODO we'll want rate-limiting here
 (defn login [{:keys [body]}]
       (let [{:keys [email password]} body]
-           (if-let [user (sql/user-by-email sql/dbspec {:email email})]
+           (if-let [user (sql/user-by-email {:email email})]
                    (verify-login user password)
                    (fail-with-dummy-hash))))
 
 (defn logout [{:keys [identity]}]
-      (sql/delete-session sql/dbspec {:id (:session-id identity)})
+      (sql/delete-session {:id (:session-id identity)})
       {:status 200})
 
 (defn get-account-info [{:keys [identity]}]
