@@ -34,7 +34,7 @@
   {:store :database
    ; The migration dir is relative to /resources, so .sql files will be dropped in resources/private/migrations.
    :migration-dir "private/migrations"
-   :db sql/dbspec})
+   :db {:connection-uri sql/connection-uri}})
 
 (defn migrate-new [[migration-name]]
       (println "Creating up.sql and down.sql for" migration-name "in" (:migration-dir migratus-spec))
