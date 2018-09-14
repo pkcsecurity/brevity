@@ -18,8 +18,8 @@
 
 (hug/set-adapter! (adapters/kebab-adapter))
 
-(conman/bind-connection @dbspec "{{name}}/sql/articles.sql")
-(conman/bind-connection @dbspec "{{name}}/sql/users.sql")
+(conman/bind-connection @dbspec "{{raw-name}}/sql/articles.sql")
+(conman/bind-connection @dbspec "{{raw-name}}/sql/users.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]
