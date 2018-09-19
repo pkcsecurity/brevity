@@ -12,6 +12,7 @@
 
 (defn -main [& args]
   (sql/init!)
-  (if (= "development" (environ/env :environment))
-    (server/run-dmc r/app :host host :port port)
-    (server/run r/app :host host :port port)))
+  (server/server
+    (if (= "development" (environ/env :environment))
+      (server/run-dmc r/app :host host :port port)
+      (server/run r/app :host host :port port))))

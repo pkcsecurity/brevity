@@ -13,14 +13,14 @@
 (defn welcome-message [{:keys [full-name] :as session}]
       [:div.fr.relative.hide-child
        (if session
-         [:div
+         [:div.welcome-message
           [:div.pa3
            [:i.fas.fa-chevron-down.mr2]
            full-name]
           [:div.bg-gray.pa3.dim.pointer.child.absolute.w-100.dim.tc
            {:on-click (fn [e] (.preventDefault e) (s/logout))}
            "Logout"]]
-         [header-link (routes/page :login) "Login" "fr"])])
+         [header-link (routes/page :login) "Login" "fr login-link"])])
 
 (defn header []
       (xhr/send-get (routes/api :get-account-info) :success-atom m/session)
