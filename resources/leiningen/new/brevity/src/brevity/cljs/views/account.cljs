@@ -11,7 +11,7 @@
             show-kiwi-bird (r/atom false)
             message (r/atom "")]
            (fn []
-               [:form.mw5.center
+               [:form.mw5.center.login-form
                 [:div @message]
                 [c/input :label-text "Email Address" :id :email :type :email :value email]
                 [c/input :label-text "Password" :id :password :type :password :value password]
