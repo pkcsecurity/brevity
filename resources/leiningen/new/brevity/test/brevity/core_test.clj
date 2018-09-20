@@ -12,7 +12,7 @@
 
 (use-fixtures :once with-backend)
 
-(def driver (e/firefox))
+(def driver (e/firefox-headless))
 
 (def base-url (str "http://" (environ/env :host) ":" (environ/env :port)))
 
