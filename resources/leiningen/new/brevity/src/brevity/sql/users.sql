@@ -12,8 +12,8 @@ where email = :email;
 -- :result :one
 select
   *,
-  extract(minute from now() - started) as since_started,
-  extract(minute from now() - last_active) as since_active
+  extract(epoch from now() - started) / 60 as since_started,
+  extract(epoch from now() - last_active) / 60 as since_active
 from sessions
   natural join users
 where session_id = :id;
