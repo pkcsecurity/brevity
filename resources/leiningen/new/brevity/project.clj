@@ -18,6 +18,7 @@
   :resource-paths ["resources"]
   :main ^:skip-aot {{namespace}}
   :dependencies [[org.clojure/clojure "LATEST"]
+                 [org.clojure/tools.cli "LATEST"]
                  [org.immutant/web "LATEST"]
                  [ring/ring-core "LATEST"]
                  [ring/ring-devel "LATEST"]
