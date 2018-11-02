@@ -1,7 +1,7 @@
 -- :name insert-user
 -- :command :execute
-insert into users (password_hash, full_name, email)
-values (:passwordhash, :full-name, :email);
+insert into users (password_hash, full_name, email, is_admin)
+values (:passwordhash, :full-name, :email, :is-admin);
 
 -- :name user-by-email
 -- :result :one

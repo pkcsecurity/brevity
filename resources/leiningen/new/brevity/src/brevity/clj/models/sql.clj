@@ -16,10 +16,12 @@
                          :maximum-pool-size (or (environ/env :hikari-maximum-pool-size) 10)
                          :minimum-idle (or (environ/env :hikari-minimum-idle) 10)})}))
 
+(def ^:dynamic *db* dbspec)
+
 (hug/set-adapter! (adapters/kebab-adapter))
 
-(conman/bind-connection @dbspec "{{raw-name}}/sql/articles.sql")
-(conman/bind-connection @dbspec "{{raw-name}}/sql/users.sql")
+(conman/bind-connection @*db* "{{raw-name}}/sql/articles.sql")
+(conman/bind-connection @*db* "{{raw-name}}/sql/users.sql")
 
 (defn init! []
       (let [dev-mode? (= "true" (environ/env :dev-database))]
