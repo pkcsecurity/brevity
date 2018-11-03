@@ -20,11 +20,28 @@ lein figwheel dev
 
 ## Guide
 
+### Command-line interface
+
+To add a regular user:
+```bash
+lein brevity user:new
+```
+
+To add an admin:
+```bash
+lein brevity user:new --admin
+```
+
+You can also pass user data in as command arguments if you don't want to be prompted for them:
+```bash
+lein brevity user:new -e non-admin@example.com -n "User's full name"
+```
+
 ### Database migrations
 
 All table definitions live in `{{name}}/resources/private/migrations`, where each migration has a corresponding `.up.sql` and `.down.sql` file.  When you want to make a change to {{name}}'s schema, such as to add a table for storing comments:
 ```bash
-lein brevity migrate new basic-comment-table
+lein brevity migrate:new -n basic-comment-table
 ```
 This will put empty files, named something like `20180716210558-basic-comment-table.down.sql` and `20180716210558-basic-comment-table.up.sql`, in  `{{name}}/resources/private/migrations/`.  Next, open the `.up.sql` file and type in your table definitions:
 ```sql

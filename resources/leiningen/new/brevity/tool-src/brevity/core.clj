@@ -70,9 +70,10 @@
   (wait-for-db!)
   (migratus/migrate migratus-spec))
 
-(defn migrate-new [{:keys [options]}]
+(defn migrate-new [{:keys [options arguments]}]
   (let [{:keys [name]} options
-        migration-name (or name (user-input "Migration name: "))]
+        [first-arg & _] arguments
+        migration-name (or name first-arg (user-input "Migration name: "))]
     (wait-for-db!)
     (println "Creating up.sql and down.sql for" migration-name "in" (:migration-dir migratus-spec))
     (migratus/create migratus-spec migration-name)))

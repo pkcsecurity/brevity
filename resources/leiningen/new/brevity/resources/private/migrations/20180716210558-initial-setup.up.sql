@@ -16,14 +16,6 @@ create table users (
   date_added timestamp default now()
 );
 
--- TODO get rid of these default auth values
--- probably want a cli to add a user
-insert into users (password_hash, full_name, email, is_admin)
-values ('bcrypt+sha512$674761338e588e8a1865b0aa67f793e0$12$f0288a89775751019d543bb78c5d8faa20d43f82fb7e7f5e',
-        'Non Admin', 'nonadmin@example.com', false),
-  ('bcrypt+sha512$674761338e588e8a1865b0aa67f793e0$12$f0288a89775751019d543bb78c5d8faa20d43f82fb7e7f5e',
-   'Admin', 'admin@example.com', true);
-
 create table sessions (
   session_id varchar(255) not null primary key,
   user_id uuid not null references users on delete cascade,
